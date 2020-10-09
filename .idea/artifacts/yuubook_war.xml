@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="yuubook:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>yuubook</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="yuubook.war">
+      <element id="artifact" artifact-name="yuubook:war exploded" />
+    </root>
+  </artifact>
+</component>
