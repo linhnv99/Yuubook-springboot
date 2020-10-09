@@ -1,0 +1,4 @@
+2020-09-17 22:21:14,601 INFO o.s.b.StartupInfoLogger [restartedMain] Starting StartWebServer on DESKTOP-UORBSEQ with PID 8552 (F:\JavaDev\Lesson\Phan3_Backend\yuubook\target\classes started by ADMIN in F:\JavaDev\Lesson\Phan3_Backend\yuubook)
+2020-09-17 22:21:14,617 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2020-09-17 22:21:14,869 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-09-17 22:21:14,869 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
