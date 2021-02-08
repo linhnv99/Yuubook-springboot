@@ -132,7 +132,7 @@ th, td, .order-deleted {
 												<c:forEach items="${orders }" var="order">
 													<tr>
 														<td>HD${order.id }</td>
-														<td>${order.fullname }</td>
+														<td>${order.fullName }</td>
 														<td><fmt:formatNumber type="number"
 																pattern="###,###,###" value="${order.totalPriceOrder }"></fmt:formatNumber>đ</td>
 														<td>
@@ -228,13 +228,13 @@ th, td, .order-deleted {
 								<div class="row">
 									<div class="col-6">
 										<h6>Địa chỉ giao hàng</h6>
-										<p>${order.fullname }</p>
+										<p>${order.fullName }</p>
 										<p>${order.addressDetail },${order.wards }-
 											${order.district } - ${order.province }</p>
 										<p>${order.phone }</p>
 										<div class="my-4"></div>
 										<h6>Địa chỉ thanh toán</h6>
-										<p>${order.fullname }</p>
+										<p>${order.fullName }</p>
 										<p>${order.addressDetail },${order.wards }-
 											${order.district } - ${order.province }</p>
 										<p>${order.phone }</p>

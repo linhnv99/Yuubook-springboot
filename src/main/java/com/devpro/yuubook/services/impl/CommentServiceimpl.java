@@ -4,13 +4,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.devpro.yuubook.models.entities.Book;
+import com.devpro.yuubook.services.mappers.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devpro.yuubook.dto.CommentDTO;
-import com.devpro.yuubook.entities.Comment;
-import com.devpro.yuubook.entities.User;
-import com.devpro.yuubook.entities.UserLikedComment;
+import com.devpro.yuubook.models.dto.CommentDTO;
+import com.devpro.yuubook.models.entities.Comment;
+import com.devpro.yuubook.models.entities.User;
+import com.devpro.yuubook.models.entities.UserLikedComment;
 import com.devpro.yuubook.repositories.BookRepo;
 import com.devpro.yuubook.repositories.CommentRepo;
 import com.devpro.yuubook.repositories.UserLikedCommentRepo;
@@ -25,54 +27,49 @@ public class CommentServiceimpl implements CommentService {
 	@Autowired
 	private UserLikedCommentRepo userLikedCommentRepo;
 
+	@Autowired
+	private CommentMapper commentMapper;
+
 	@Override
 	public void saveCommentByUserLogin(User userLogin, CommentDTO commentDTO) {
-		Comment comment = new Comment();
-		comment.setUser(userLogin);
-		comment.setBook(bookRepo.findById(commentDTO.getBookId()).get());
-		comment.setTitle(commentDTO.getTitle());
-		comment.setContent(commentDTO.getContent());
-		comment.setStar(commentDTO.getStar());
-		comment.setLikeComment(0);
-		comment.setDate(LocalDateTime.now());
-		comment.setCreatedDate(LocalDateTime.now());
+		Book book = bookRepo.findById(commentDTO.getBookId()).orElse(null);
+		Comment comment = commentMapper.toEntity(userLogin, commentDTO, book);
 		commentRepo.save(comment);
 	}
 
 	@Override
-	public void deleteCommentByUserLogin(User userLogin, Integer cmtId) {
+	public void deleteCommentByUserLogin(User userLogin, int cmtId) {
 		commentRepo.deleteCommentByUserLogin(userLogin.getId(), cmtId);
 	}
 
 	@Override
-	public Comment likeComment(User userLogin, Integer cmtId) {
-		Comment commentInDB = commentRepo.findById(cmtId).get();
-		if (userLogin != null && commentInDB.getId() != null) {
-			commentInDB.setLikeComment(commentInDB.getLikeComment() + 1);
-			List<UserLikedComment> userLikedComments = new ArrayList<UserLikedComment>();
+	public Comment likeComment(User userLogin, int cmtId) {
+		Comment comment = commentRepo.findById(cmtId).orElse(null);
+		if (userLogin != null && comment != null) {
+			comment.setLikeComment(comment.getLikeComment() + 1);
+			List<UserLikedComment> userLikedComments = new ArrayList<>();
 
 			UserLikedComment userLikedComment = new UserLikedComment();
-			userLikedComment.setUser_id(userLogin.getId());
-			userLikedComment.setComment(commentInDB);
+			userLikedComment.setUserId(userLogin.getId());
+			userLikedComment.setComment(comment);
 			userLikedComments.add(userLikedComment);
-
-			commentInDB.setUserLikedComments(userLikedComments);
-			commentRepo.save(commentInDB);
+			comment.setUserLikedComments(userLikedComments);
+			return commentRepo.save(comment);
 		}
-		return commentInDB;
+		return comment;
 	}
 
 	@Override
-	public Comment dislikeComment(User userLogin, Integer cmtId) {
-		Comment commentInDB = commentRepo.findById(cmtId).get();
-		if (userLogin != null && commentInDB.getId() != null) {
-			commentInDB.setLikeComment(commentInDB.getLikeComment() - 1);
+	public Comment dislikeComment(User userLogin, int cmtId) {
+		Comment comment = commentRepo.findById(cmtId).orElse(null);
+		if (userLogin != null && comment != null) {
+			comment.setLikeComment(comment.getLikeComment() - 1);
 			
 			UserLikedComment userLikedComment = userLikedCommentRepo.findUserLikedByUserIdAndCommentId(userLogin.getId(), cmtId);
 			userLikedCommentRepo.deleteById(userLikedComment.getId());
-			commentRepo.save(commentInDB);
+			return commentRepo.save(comment);
 		}
-		return commentInDB;
+		return comment;
 	}
 
 	@Override
@@ -81,12 +78,12 @@ public class CommentServiceimpl implements CommentService {
 	}
 
 	@Override
-	public List<Comment> getAllComments() {
-		return commentRepo.getAllComments();
+	public List<Comment> getAll() {
+		return commentRepo.getAll();
 	}
 
 	@Override
-	public void deleteCommentByid(Integer id) {
+	public void deleteById(int id) {
 		commentRepo.deleteById(id);
 	}
 }

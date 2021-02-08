@@ -3,24 +3,24 @@ package com.devpro.yuubook.services;
 import java.io.IOException;
 import java.util.List;
 
-import com.devpro.yuubook.entities.User;
+import com.devpro.yuubook.models.entities.User;
 
 public interface UserService {
 	
-	User findUserByEmail(String email);
+	User getUserByEmail(String email);
 
 	User save(User user);
 	
-	List<User> getAllUsers();
+	List<User> getAll();
 
-	void deleteUserById(Integer id);
+	void deleteById(int id);
 
 	User update(User user) throws IllegalStateException, IOException;
 
-	Integer getTotalNumberOfUsers();
+	int getTotalNumberOfUsers();
 
-	void addFavoritedBookByUserLogin(User userLogin, Integer id);
+	void addFavoriteBookByUserLogin(User userLogin, int id);
 
-	void removeFavoritedBookByUserLogin(User userLogin, Integer id);
+	void removeFavoriteBookByUserLogin(User userLogin, int id);
 
 }

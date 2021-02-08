@@ -180,7 +180,7 @@ select {
 												<c:forEach items="${orders }" var="order">
 													<tr>
 														<td>HD${order.id }</td>
-														<td>${order.fullname }</td>
+														<td>${order.fullName }</td>
 														<td><fmt:formatNumber type="number"
 																pattern="###,###,###" value="${order.totalPriceOrder }"></fmt:formatNumber>đ</td>
 														<td>${order.buyDate }</td>
@@ -263,7 +263,7 @@ select {
 									<div class="sub-title">Thông tin giao hàng</div>
 									<div class="box-confirm">
 										<p>
-											Người nhận : <span>${order.fullname }</span>
+											Người nhận : <span>${order.fullName }</span>
 										</p>
 										<p>
 											SDT : <span>0986613124</span>

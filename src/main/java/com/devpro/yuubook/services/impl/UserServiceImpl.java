@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.devpro.yuubook.entities.Book;
-import com.devpro.yuubook.entities.BookFavorite;
-import com.devpro.yuubook.entities.Role;
-import com.devpro.yuubook.entities.User;
+import com.devpro.yuubook.models.entities.Book;
+import com.devpro.yuubook.models.entities.BookFavorite;
+import com.devpro.yuubook.models.entities.Role;
+import com.devpro.yuubook.models.entities.User;
 import com.devpro.yuubook.repositories.BookFavoriteRepo;
 import com.devpro.yuubook.repositories.RoleRepo;
 import com.devpro.yuubook.repositories.UserRepo;
@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
     private BookFavoriteRepo bookFavoriteRepo;
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepo.findUserByEmail(email);
+    public User getUserByEmail(String email) {
+        return userRepo.getUserByEmail(email);
     }
 
     @Override
@@ -48,39 +48,38 @@ public class UserServiceImpl implements UserService {
         roles.add(roleRepo.findRoleByName("ROLE_USER"));
         user.setRoles(roles);
 
+        user.setStatus(true);
         user.setCreatedDate(LocalDateTime.now());
         return userRepo.save(user);
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return userRepo.findAll();
     }
 
     @Override
-    public void deleteUserById(Integer id) {
-        userRepo.deleteUserById(id);
+    public void deleteById(int id) {
+        userRepo.deleteById(id);
     }
 
     @Override
-    public User update(User user) throws IllegalStateException, IOException {
-        User userInDB = userRepo.findById(user.getId()).get();
-        if (user.getFile() != null) {
-            saveImage(user);
-        } else {
-            user.setAvatar(userInDB.getAvatar());
+    public User update(User userIn) throws IllegalStateException, IOException {
+        User user = userRepo.findById(userIn.getId()).orElse(null);
+        if (user == null) return null;
+        if (userIn.getFile() != null) {
+            saveImage(userIn);
         }
-        if (user.getPassword().trim().isEmpty()) {
-            user.setPassword(userInDB.getPassword());
-        } else {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!userIn.getPassword().trim().isEmpty()) {
+            userIn.setPassword(passwordEncoder.encode(userIn.getPassword()));
         }
-//		user.setEmail(userInDB.getEmail());
-        user.setRoles(userInDB.getRoles());
-
-        user.setCreatedDate(userInDB.getCreatedDate());
-        user.setUpdatedDate(LocalDateTime.now());
-        return userRepo.save(user);
+        userIn.setAvatar(user.getAvatar());
+        userIn.setPassword(user.getPassword());
+        userIn.setRoles(user.getRoles());
+        userIn.setStatus(true);
+        userIn.setCreatedDate(user.getCreatedDate());
+        userIn.setUpdatedDate(LocalDateTime.now());
+        return userRepo.save(userIn);
     }
 
     public void saveImage(User user) throws IllegalStateException, IOException {
@@ -91,13 +90,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer getTotalNumberOfUsers() {
+    public int getTotalNumberOfUsers() {
         return userRepo.getTotalNumberOfUsers();
     }
 
     @Override
-    public void addFavoritedBookByUserLogin(User userLogin, Integer id) {
-        Book book = bookService.findBookById(id);
+    public void addFavoriteBookByUserLogin(User userLogin, int id) {
+        Book book = bookService.getById(id);
         BookFavorite bookFavorite = new BookFavorite();
         bookFavorite.setBook(book);
         bookFavorite.setUser(userLogin);
@@ -105,7 +104,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeFavoritedBookByUserLogin(User userLogin, Integer id) {
+    public void removeFavoriteBookByUserLogin(User userLogin, int id) {
         bookFavoriteRepo.deleteByUserAndBook(userLogin.getId(), id);
     }
 }

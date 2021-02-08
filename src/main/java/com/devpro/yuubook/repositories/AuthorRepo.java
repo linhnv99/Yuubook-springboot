@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.devpro.yuubook.entities.Author;
+import com.devpro.yuubook.models.entities.Author;
 
 @Repository
 public interface AuthorRepo extends JpaRepository<Author, Integer> {

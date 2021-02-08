@@ -2,12 +2,12 @@ package com.devpro.yuubook.services;
 
 import java.util.List;
 
-import com.devpro.yuubook.entities.Contact;
+import com.devpro.yuubook.models.entities.Contact;
 
 public interface ContactService {
 	Contact save(Contact contact);
 
-	List<Contact> getAllContacts();
+	List<Contact> getAll();
 
-	void deleteContactById(Integer id);
+	void deleteById(Integer id);
 }

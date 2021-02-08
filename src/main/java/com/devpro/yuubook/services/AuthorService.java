@@ -2,21 +2,20 @@ package com.devpro.yuubook.services;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-import com.devpro.yuubook.dto.AuthorDTO;
-import com.devpro.yuubook.entities.Author;
+import com.devpro.yuubook.models.dto.AuthorDTO;
+import com.devpro.yuubook.models.entities.Author;
 
 public interface AuthorService {
-	List<Author> getAllAuthors();
+    List<Author> getAll();
 
-	Optional<Author> findAuthorByAuthorId(Integer authorId);
-	
-	Author save(Author author) throws IllegalStateException, IOException;
-	
-	void deleteAuthorByAuthorId(Integer authorId);
+    Author getById(int id);
 
-	void updateShowHomeByAuthorId(Integer id);
+    Author save(Author author) throws IllegalStateException, IOException;
 
-	List<AuthorDTO> getAuthorWithLimitedProduct(int limitSizeProduct);
+    void delete(int id);
+
+    void updateShowHomeByAuthorId(int id);
+
+    List<AuthorDTO> getAuthorWithLimitedProduct(int l);
 }

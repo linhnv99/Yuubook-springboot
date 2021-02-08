@@ -11,11 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.devpro.yuubook.dto.CartItem;
-import com.devpro.yuubook.dto.CustomerAddress;
-import com.devpro.yuubook.entities.Order;
-import com.devpro.yuubook.entities.OrderDetail;
-import com.devpro.yuubook.entities.User;
+import com.devpro.yuubook.models.dto.CartItem;
+import com.devpro.yuubook.models.dto.CustomerAddress;
+import com.devpro.yuubook.models.entities.Order;
+import com.devpro.yuubook.models.entities.OrderDetail;
+import com.devpro.yuubook.models.entities.User;
 import com.devpro.yuubook.repositories.OrderRepo;
 import com.devpro.yuubook.services.BookService;
 import com.devpro.yuubook.services.OrderService;
@@ -33,17 +33,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void saveOrder(List<CartItem> cartItems, CustomerAddress customerAddress) {
 		User user = null;
-		// kiểm tra có tài khoản hay không?
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			User userLogin = (User) authentication.getPrincipal();
-			user = userService.findUserByEmail(userLogin.getEmail());
+			user = userService.getUserByEmail(userLogin.getEmail());
 		}
 
 		Order order = new Order();
 		order.setUser(user);
 		order.setBuyDate(LocalDateTime.now());
-		order.setFullname(customerAddress.getFullname());
+		order.setFullName(customerAddress.getFullname());
 		order.setPhone(customerAddress.getPhone());
 		order.setProvince(customerAddress.getProvince());
 		order.setDistrict(customerAddress.getDistrict());
@@ -53,10 +52,10 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(0);
 		order.setCreatedDate(LocalDateTime.now());
 
-		List<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
+		List<OrderDetail> orderDetails = new ArrayList<>();
 		for (CartItem cartItem : cartItems) {
 			OrderDetail orderDetail = new OrderDetail();
-			orderDetail.setBook(bookService.findBookById(cartItem.getBookId()));
+			orderDetail.setBook(bookService.getById(cartItem.getBookId()));
 			orderDetail.setOrder(order);
 			orderDetail.setQuantity(cartItem.getQuantity());
 			orderDetail.setUnitPrice(cartItem.getPrice());

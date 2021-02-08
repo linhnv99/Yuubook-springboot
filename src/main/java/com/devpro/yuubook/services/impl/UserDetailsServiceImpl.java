@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.devpro.yuubook.entities.User;
+import com.devpro.yuubook.models.entities.User;
 import com.devpro.yuubook.services.UserService;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService { 
@@ -16,7 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userService.findUserByEmail(email);
+		User user = userService.getUserByEmail(email);
 		if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

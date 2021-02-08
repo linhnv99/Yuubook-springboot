@@ -394,7 +394,7 @@
 														lượt thích <span class="blike box-like${comment.id }">
 															<c:set value="${0 }" var="check"></c:set> <c:forEach
 																items="${comment.userLikedComments }" var="userLiked">
-																<c:if test="${userLiked.user_id == userLogin.id }">
+																<c:if test="${userLiked.userId == userLogin.id }">
 																	<c:set value="${1 }" var="check"></c:set>
 																</c:if>
 															</c:forEach> <c:choose>

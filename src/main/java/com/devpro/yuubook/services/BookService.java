@@ -5,36 +5,35 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.devpro.yuubook.dto.BookDTO;
-import com.devpro.yuubook.entities.Author;
-import com.devpro.yuubook.entities.Book;
-import com.devpro.yuubook.entities.Category;
-import com.devpro.yuubook.entities.User;
+import com.devpro.yuubook.models.dto.BookDTO;
+import com.devpro.yuubook.models.entities.Author;
+import com.devpro.yuubook.models.entities.Book;
+import com.devpro.yuubook.models.entities.Category;
+import com.devpro.yuubook.models.entities.User;
 
 public interface BookService {
+    List<Book> getAll();
 
-	List<Book> getAllBooks();
-	
-	List<Book> getAllBooksDeleted();
+    List<Book> getAllDeleted();
 
-	Book findBookById(Integer id);
+    Book getById(Integer id);
 
-	Book save(Book book) throws IllegalStateException, IOException;
+    Book save(Book book) throws IllegalStateException, IOException;
 
-	void deleteOrRestoreBookById(Integer id, boolean b);
+    void deleteOrRestoreBookById(Integer id, boolean b);
 
-	List<Book> getLimitedProductsHot(int limit);
-	
-	Page<Book> getAllBooksByCategoryAndSort(Category category, Integer currentPage, String sortBy, Integer recordsPerPage);
+    List<Book> getLimitedProductsHot(int limit);
 
-	Page<Book> getAllBooksByAuthorAndSort(Author author, Integer currentPage, String sortBy, Integer recordsPerPage);
+    Page<Book> getAllByCategoryAndSort(Category category, int currentPage, String sortBy, int recordsPerPage);
 
-	Integer getTotalNumberOfProducts(boolean b);
+    Page<Book> getAllByAuthorAndSort(Author author, int currentPage, String sortBy, int recordsPerPage);
 
-	List<Book> getBookFavoritesByUserLogin(User userLogin);
+    int getTotalNumberOfProducts(boolean b);
 
-	List<Book> searchBooksByKeyword(String keyword);
+    List<Book> getBookFavoritesByUserLogin(User userLogin);
 
-	List<BookDTO> ajaxSearchBooksByKeyword(String keyword);
+    List<Book> searchBooksByKeyword(String keyword);
+
+    List<BookDTO> ajaxSearchBooksByKeyword(String keyword, int limit);
 
 }

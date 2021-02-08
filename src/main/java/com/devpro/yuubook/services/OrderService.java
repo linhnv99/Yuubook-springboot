@@ -3,10 +3,10 @@ package com.devpro.yuubook.services;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.devpro.yuubook.dto.CartItem;
-import com.devpro.yuubook.dto.CustomerAddress;
-import com.devpro.yuubook.entities.Order;
-import com.devpro.yuubook.entities.User;
+import com.devpro.yuubook.models.dto.CartItem;
+import com.devpro.yuubook.models.dto.CustomerAddress;
+import com.devpro.yuubook.models.entities.Order;
+import com.devpro.yuubook.models.entities.User;
 
 public interface OrderService {
 

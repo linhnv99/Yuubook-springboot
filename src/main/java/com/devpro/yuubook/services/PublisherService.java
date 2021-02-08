@@ -3,14 +3,14 @@ package com.devpro.yuubook.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.devpro.yuubook.entities.Publisher;
+import com.devpro.yuubook.models.entities.Publisher;
 
 public interface PublisherService {
-	List<Publisher> getAllPublishers();
+	List<Publisher> getAll();
 
-	Optional<Publisher> findBublisherByPublisherId(Integer id);
+	Publisher getById(int id);
 
-	void deletePublisherByPublisherId(Integer id);
+	void deleteById(int id);
 
 	Publisher save(Publisher publisher);
 
