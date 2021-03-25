@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        return userRepo.findAll();
+        return userRepo.findAllByStatus(true);
     }
 
     @Override
@@ -72,9 +72,10 @@ public class UserServiceImpl implements UserService {
         }
         if (!userIn.getPassword().trim().isEmpty()) {
             userIn.setPassword(passwordEncoder.encode(userIn.getPassword()));
+        }else {
+            userIn.setPassword(user.getPassword());
         }
-        userIn.setAvatar(user.getAvatar());
-        userIn.setPassword(user.getPassword());
+//        userIn.setAvatar(user.getAvatar());
         userIn.setRoles(user.getRoles());
         userIn.setStatus(true);
         userIn.setCreatedDate(user.getCreatedDate());

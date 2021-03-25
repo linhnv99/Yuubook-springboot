@@ -165,6 +165,11 @@ $(document).ready(function(){
 			alert("Vui lòng điền đầy đủ thông tin.");
 			return false;
 		}
+		if(!validatePhone(phone) && phone != ''){
+			alert("Số điện thoại không hợp lệ !");
+			return;
+		}
+
 		$(".contact-loader").show();
 		var data = {
 			"name" : name,
@@ -215,9 +220,16 @@ $(document).ready(function(){
 			return true;
 	}
 
+	function validatePhone(phone){
+		var pattern = /^(84|0[3|5|7|8|9])+([0-9]{8})\b$/;
+		if(pattern.test(phone))
+			return true;
+		return false;
+	}
+
 	function validateEmail(sEmail) {
-		var filter = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-		if (filter.test(sEmail)) {
+		var pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+		if (pattern.test(sEmail)) {
 			return true;
 		} else {
 			return false;
@@ -317,13 +329,19 @@ $(document).ready(function(){
 		var email = $("#p-email").val().trim();
 		var password = $("#p-password").val().trim();
 		var confirmPass = $("#p-confirmPassword").val().trim();
-		
+
+
 		if(password!=''){
 			if(!validateInput(surname, name, email, password, confirmPass)){
 				return;
 			}
 		}
-		
+
+		if(!validatePhone(phone) && phone != ''){
+			$("#errPhone").show().html("Số điện thoại không hợp lệ !");
+			return;
+		}else $("#errPhone").hide().html("");
+
 		if(!validateInput(surname, name, email, null, null)){
 			return;
 		}

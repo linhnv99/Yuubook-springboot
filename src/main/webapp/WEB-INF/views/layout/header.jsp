@@ -44,16 +44,18 @@
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
 							<li><a href="#"> Hi,<span id="userLogin">${userLogin.name }</span></a>
+								<ul class="sub-menu">
+									<li><a href="${path }/profile">Bảng điều khiển</a></li>
+								</ul></li>
 								<sec:authorize access="hasAuthority('ROLE_USER')">
-									<ul class="sub-menu">
-										<li><a href="${path }/profile">Bảng điều khiển</a></li>
-									</ul></li>
+
 									<li><a href="${path}/logout">Đăng xuất</a></li>
 								</sec:authorize>
 
 						</sec:authorize>
 						<sec:authorize access="hasAuthority('ROLE_ADMIN')">
 							<li><a href="${path}/admin/dashboard">Go to Admin</a></li>
+
 						</sec:authorize>
 					</ul>
 				</div>

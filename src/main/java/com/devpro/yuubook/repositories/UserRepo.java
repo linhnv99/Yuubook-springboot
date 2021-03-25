@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.devpro.yuubook.models.entities.User;
 
+import java.util.List;
+
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer> {
 
@@ -19,10 +21,11 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "delete from user where id = ?1", nativeQuery = true)
+	@Query(value = "update user set status = 0 where id = ?1", nativeQuery = true)
 	void deleteById(int id);
 	
 	@Query(value = "select count(*) from user", nativeQuery = true)
 	int getTotalNumberOfUsers();
 
+	List<User> findAllByStatus(boolean status);
 }

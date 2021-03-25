@@ -123,7 +123,7 @@
 							<c:forEach items="${user.roles }" var="role">
 								<c:if test="${role.name == 'ROLE_USER' }">
 									<div class="modal-body text-center" style="color: #212529">
-										Bạn có chắc chắn muốn người dùng
+										Bạn có chắc chắn muốn xóa người dùng
 										<h6>${user.name }?</h6>
 									</div>
 									<div class="modal-footer">

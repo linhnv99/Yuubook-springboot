@@ -16,8 +16,8 @@
 <jsp:include page="/WEB-INF/views/layout/css.jsp"></jsp:include>
 </head>
 <body
-	onload="getDistrict(${userAddress!=null ? userAddress.provinceId : 'null'}, 
-							${userAddress!=null ? userAddress.districtId : 'null'}), 
+	onload="getDistrict(${userAddress!=null ? userAddress.provinceId : 'null'},
+							${userAddress!=null ? userAddress.districtId : 'null'}),
 							getWards(${userAddress!=null ? userAddress.districtId : 'null' },
 							${userAddress!=null ? userAddress.wardsId : 'null'})">
 	<div class="wrapper">
@@ -92,6 +92,7 @@
 										<label for="p-phone">Số điện thoại</label>
 										<input type="text" id="p-phone"
 											value="${user.phone != null ? user.phone : '' }">
+										<small id="errPhone"></small>
 									</div>
 									<div class="input-group">
 										<label for="p-password"> Mật khẩu mới<span class="req">*</span></label>
