@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.devpro.yuubook.models.dto.OrderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,10 @@ import com.devpro.yuubook.services.BookService;
 import com.devpro.yuubook.services.OrderService;
 import com.devpro.yuubook.services.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
@@ -29,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
 	private UserService userService;
 	@Autowired
 	private BookService bookService;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public void saveOrder(List<CartItem> cartItems, CustomerAddress customerAddress) {
@@ -143,6 +151,27 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrdersDeletedByUserLogin(User userLogin) {
 		List<Order> orders = orderRepo.getOrdersDeletedByUserLogin(userLogin.getId());
+		return getOrders(orders);
+	}
+
+	@Override
+	public List<Order> filter(OrderFilter filter) {
+		String sql = "select * from `order` where 1 = 1 and status = 1 and not order_status = 0 ";
+
+		if(filter.getFromDate() != null){
+			sql += "and buy_date >= '" + filter.getFromDate() + "'";
+		}
+		if(filter.getToDate() != null){
+			sql += "and buy_date <= '" + filter.getToDate() + "'";
+		}
+
+		if(filter.getFromDate() != null && filter.getToDate() != null && filter.getFromDate().isAfter(filter.getToDate()))
+			return null;
+
+		sql += " order by buy_date desc ";
+		System.out.println(sql);
+		Query query = entityManager.createNativeQuery(sql, Order.class);
+		List<Order> orders = query.getResultList();
 		return getOrders(orders);
 	}
 }

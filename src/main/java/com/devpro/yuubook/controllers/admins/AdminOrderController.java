@@ -1,14 +1,12 @@
 package com.devpro.yuubook.controllers.admins;
 
+import com.devpro.yuubook.models.dto.OrderFilter;
+import com.devpro.yuubook.models.entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.devpro.yuubook.models.dto.AjaxResponse;
 import com.devpro.yuubook.services.OrderService;
@@ -21,6 +19,7 @@ public class AdminOrderController {
 
 	@GetMapping("/order")
 	public String index(ModelMap model) {
+		model.addAttribute("orderFilter", new OrderFilter());
 		model.addAttribute("orders", orderService.getOrdersConfirmed());
 		return "admin/order";
 	}
@@ -36,5 +35,11 @@ public class AdminOrderController {
 			@PathVariable("val") Integer val) {
 		orderService.setOrderStatusById(id, val);
 		return ResponseEntity.ok(new AjaxResponse("Thành công", 200));
+	}
+
+	@PostMapping("/order/filter")
+	public String filter(ModelMap model, @ModelAttribute("orderFilter") OrderFilter orderFilter){
+		model.addAttribute("orders", orderService.filter(orderFilter));
+		return "admin/order";
 	}
 }
