@@ -176,9 +176,8 @@
                         <div class="modal-header">
                             <h6 class="modal-title" id="myModalLabel">Mã HĐ:
                                 DH${order.id }</h6>
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">×</span>
-                            </button>
+                            <a style="text-decoration: underline!important; "
+                               href="/exports/${order.id}" target="_blank">Export pdf</a>
                         </div>
                         <div class="modal-body">
                             <h4 class="text-center my-4" style="color: #000">Danh sách

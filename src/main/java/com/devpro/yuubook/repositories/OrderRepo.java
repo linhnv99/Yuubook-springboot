@@ -14,6 +14,8 @@ import com.devpro.yuubook.models.entities.Order;
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Integer> {
 
+	Order findOrderByIdAndStatus(int id, boolean status);
+
 	@Query(value = "select * from `order` where order_status = 0 and status = 1 order by buy_date desc", nativeQuery = true)
 	List<Order> getOrdersNeedConfirm();
 

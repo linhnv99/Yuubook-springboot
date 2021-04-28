@@ -94,6 +94,8 @@ th, td, .order-deleted {
 								</c:if>
 								</c:if>
 							</c:forEach>
+							<li><a href="${path }/product/hot">Kho sách hot</a></li>
+
 						</ul>
 					</div>
 				</div>
@@ -191,7 +193,9 @@ th, td, .order-deleted {
 							<div class="order-detail">
 								<div class="mainbox2-body"
 									style="border: none; margin-bottom: 60px;">
-									<h6 class="text-center mt-5 mb-4">DANH SÁCH SẢN PHẨM</h6>
+									<a style="text-decoration: underline!important; "
+									href="/exports/${order.id}" target="_blank">Export pdf</a>
+									<h6 class="text-center mt-3 mb-4">DANH SÁCH SẢN PHẨM</h6>
 									<div class="box-order">
 										<table width="100%" class="table-bordered">
 											<thead>

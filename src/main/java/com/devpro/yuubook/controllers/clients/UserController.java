@@ -6,11 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.devpro.yuubook.models.dto.AjaxResponse;
 import com.devpro.yuubook.models.entities.Order;
@@ -43,26 +39,26 @@ public class UserController extends BaseController {
 		return "user/profile";
 	}
 
-	@GetMapping("personal/info")
+	@GetMapping("/personal/info")
 	public String personalInformation(ModelMap model) {
 		model.addAttribute("user", userService.getUserByEmail(userLogin().getEmail()));
 		return "user/personal-info";
 	}
 
-	@GetMapping("address")
+	@GetMapping("/address")
 	public String userAddress(ModelMap model) {
 		model.addAttribute("province", provinceRepo.findAll());
 		model.addAttribute("userAddress", userAddressService.getUserAddressByUserLogin(userLogin()));
 		return "user/user-address";
 	}
 
-	@GetMapping("order")
+	@GetMapping("/order")
 	public String userOrder(ModelMap model) {
 		model.addAttribute("orders", orderService.getOrdersByUserLogin(userLogin()));
 		return "user/user-order";
 	}
 
-	@PostMapping("order/delete/{id}")
+	@PostMapping("/order/delete/{id}")
 	public ResponseEntity<AjaxResponse> deleteOrder(ModelMap model, @PathVariable("id") Integer id)
 			throws IllegalStateException, IOException {
 		Order order = orderService.getOrderById(id);
@@ -73,7 +69,7 @@ public class UserController extends BaseController {
 		return ResponseEntity.ok(new AjaxResponse("Hủy thành công.", 200));
 	}
 
-	@GetMapping("order/deleted")
+	@GetMapping("/order/deleted")
 	public String orderDeleted(ModelMap model) {
 		model.addAttribute("orders", orderService.getOrdersDeletedByUserLogin(userLogin()));
 		return "user/order-deleted";

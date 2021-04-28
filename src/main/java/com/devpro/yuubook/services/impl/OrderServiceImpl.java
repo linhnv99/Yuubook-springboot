@@ -77,16 +77,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrdersConfirmed() {
 		List<Order> orders = orderRepo.getOrdersConfirmed();
-		return getOrders(orders);
+		return calculatePricedOrders(orders);
 	}
 
 	@Override
 	public List<Order> getOrdersNeedConfirm() {
 		List<Order> orders = orderRepo.getOrdersNeedConfirm();
-		return getOrders(orders);
+		return calculatePricedOrders(orders);
 	}
 
-	private List<Order> getOrders(List<Order> orders) {
+	private List<Order> calculatePricedOrders(List<Order> orders) {
 		for (Order order : orders) {
 			BigDecimal totalPrice = BigDecimal.ZERO;
 			for (OrderDetail orderDetail : order.getOrderDetails()) {
@@ -105,9 +105,9 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public BigDecimal getTotalSales() {
 		List<Order> orders = orderRepo.getOrdersCompleted();
-		BigDecimal itemPrice = BigDecimal.ZERO;
 		BigDecimal totalSale = BigDecimal.ZERO;
 		for (Order order : orders) {
+			BigDecimal itemPrice = BigDecimal.ZERO;
 			for (OrderDetail orderDetail : order.getOrderDetails()) {
 				itemPrice = itemPrice.add(orderDetail.getUnitPrice().multiply(new BigDecimal(orderDetail.getQuantity())));
 			}
@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrdersByUserLogin(User userLogin) {
 		List<Order> orders = orderRepo.getOrdersByUserLogin(userLogin.getId());
-		return getOrders(orders);
+		return calculatePricedOrders(orders);
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrdersDeletedByUserLogin(User userLogin) {
 		List<Order> orders = orderRepo.getOrdersDeletedByUserLogin(userLogin.getId());
-		return getOrders(orders);
+		return calculatePricedOrders(orders);
 	}
 
 	@Override
@@ -172,6 +172,6 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println(sql);
 		Query query = entityManager.createNativeQuery(sql, Order.class);
 		List<Order> orders = query.getResultList();
-		return getOrders(orders);
+		return calculatePricedOrders(orders);
 	}
 }

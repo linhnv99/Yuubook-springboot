@@ -8,7 +8,7 @@ function addToCart(id) {
 		$.ajax({
 			url : "/add-to-cart",
 			type : "post",
-			datatType : "json",
+			dataType : "json",
 			contentType : "application/json",
 			data : JSON.stringify(data),
 			success : function(data) {
@@ -42,7 +42,7 @@ function removeCart(id) {
 		$.ajax({
 			url : "/remove-cart/"+id,
 			type : "post",
-			datatType : "json",
+			dataType : "json",
 			success : function(data) {
 				if(data.statusCode == 400){
 					alert(data.obj);
@@ -81,7 +81,7 @@ function buyNow(id){
 	$.ajax({
 		url : "/add-to-cart",
 		type : "post",
-		datatType : "json",
+		dataType : "json",
 		contentType : "application/json",
 		data : JSON.stringify(data),
 		success : function(data, status) {
@@ -104,7 +104,7 @@ function updateCart(id, num){
 		$.ajax({
 			url : "/add-to-cart",
 			type : "post",
-			datatType : "json",
+			dataType : "json",
 			contentType : "application/json",
 			data : JSON.stringify(data),
 			success : function(data, status) {
@@ -181,6 +181,13 @@ function getWards(d_id, w_id){
 	})
 }
 
+function validatePhone(phone){
+	var pattern = /^(84|0[3|5|7|8|9])+([0-9]{8})\b$/;
+	if(pattern.test(phone))
+		return true;
+	return false;
+}
+
 $("#saveCusomerAddress").on("click", function(e){
 	e.preventDefault();
 	var fullname = $("#fullname").val().trim();
@@ -211,7 +218,11 @@ $("#saveCusomerAddress").on("click", function(e){
 		$("#errPhone").show().html("Số điện thoại không được để trống.");
 		return false;
 	}else $("#errPhone").hide().html("");
-	
+
+	if(!validatePhone(phone) && phone != ''){
+		$("#errPhone").show().html("Số điện thoại không hợp lệ !");
+		return;
+	}else $("#errPhone").hide().html("");
 	if(provinceId == '-1'){
 		$("#errProvince").show().html("Vui lòng chọn tỉnh thành phố.");
 		return false;

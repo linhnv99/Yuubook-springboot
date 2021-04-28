@@ -94,6 +94,8 @@ th, td, .order-deleted {
 								</c:if>
 								</c:if>
 							</c:forEach>
+							<li><a href="${path }/product/hot">Kho sách hot</a></li>
+
 						</ul>
 					</div>
 				</div>

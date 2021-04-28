@@ -134,6 +134,10 @@ public class BookServiceImpl implements BookService {
                                               String sortBy,
                                               int recordsPerPage) {
         Pageable pageable = PageRequest.of(currentPage - 1, recordsPerPage, setSort(sortBy));
+
+        if (category == null)
+            return bookRepo.getAllByHot(pageable);
+
         return bookRepo.getAllByCategory(category.getId(), pageable);
     }
 
