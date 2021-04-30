@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Table(name = "user")
 public class User extends BaseEntity implements UserDetails {
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<Role>();
@@ -54,6 +54,7 @@ public class User extends BaseEntity implements UserDetails {
     private String phone;
     private String email;
     private String password;
+    private String provider;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.devpro.yuubook.models.bo.Provider;
 import com.devpro.yuubook.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,7 @@ import com.devpro.yuubook.repositories.RoleRepo;
 import com.devpro.yuubook.repositories.UserRepo;
 import com.devpro.yuubook.services.BookService;
 import com.devpro.yuubook.services.UserService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,20 +38,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepo.getUserByEmail(email);
+        return userRepo.findByEmail(email);
     }
 
     @Override
     public User save(User user) {
-        user.setAvatar(null);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        List<Role> roles = new ArrayList<Role>();
+        List<Role> roles = new ArrayList<>();
         roles.add(roleRepo.findRoleByName("ROLE_USER"));
         user.setRoles(roles);
 
+        user.setProvider(Provider.SYSTEM.name());
         user.setStatus(true);
-        user.setCreatedDate(LocalDateTime.now());
         return userRepo.save(user);
     }
 
@@ -66,28 +67,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User userIn) throws IllegalStateException, IOException {
         User user = userRepo.findById(userIn.getId()).orElse(null);
+
         if (user == null) return null;
-        if (userIn.getFile() != null) {
-            saveImage(userIn);
-        }
-        if (!userIn.getPassword().trim().isEmpty()) {
-            userIn.setPassword(passwordEncoder.encode(userIn.getPassword()));
-        }else {
-            userIn.setPassword(user.getPassword());
-        }
-//        userIn.setAvatar(user.getAvatar());
-        userIn.setRoles(user.getRoles());
-        userIn.setStatus(true);
-        userIn.setCreatedDate(user.getCreatedDate());
-        userIn.setUpdatedDate(LocalDateTime.now());
-        return userRepo.save(userIn);
+
+        if (!userIn.getName().trim().isEmpty())
+            user.setName(userIn.getName());
+        if (!userIn.getSurname().trim().isEmpty())
+            user.setName(userIn.getSurname());
+        if (!userIn.getPhone().trim().isEmpty())
+            user.setName(userIn.getPhone());
+        if (!userIn.getPassword().trim().isEmpty())
+            user.setPassword(passwordEncoder.encode(userIn.getPassword()));
+        if (userIn.getFile() != null)
+            saveImage(user, userIn.getFile());
+
+        return userRepo.save(user);
     }
 
-    public void saveImage(User user) throws IllegalStateException, IOException {
+    public void saveImage(User user, MultipartFile file) throws IllegalStateException, IOException {
         String fullPath = FileUtils.SAVE_PATH + "users/"
-                + user.getFile().getOriginalFilename();
-        user.getFile().transferTo(new File(fullPath));
-        user.setAvatar("users/" + user.getFile().getOriginalFilename());
+                + file.getOriginalFilename();
+        file.transferTo(new File(fullPath));
+        user.setAvatar("http://localhost:8080/files/users/" + file.getOriginalFilename());
     }
 
     @Override
@@ -107,5 +108,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeFavoriteBookByUserLogin(User userLogin, int id) {
         bookFavoriteRepo.deleteByUserAndBook(userLogin.getId(), id);
+    }
+
+    @Override
+    public User updateAvatar(MultipartFile file, User userLogin) throws IOException {
+        if (file.isEmpty()) return null;
+
+        User user = userRepo.findById(userLogin.getId()).orElse(null);
+        if (user == null) return null;
+
+        saveImage(user, file);
+
+        return userRepo.save(user);
     }
 }

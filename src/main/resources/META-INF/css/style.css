@@ -260,6 +260,9 @@ html, body {
      display: block;
      padding: 5px 25px;
 }
+.header-bottom .box-cart ul.sub-menu li:hover a{
+	color: #087b39!important;
+}
 /* end header */
 /* category banner */
 .category {
@@ -2216,10 +2219,12 @@ a.prev-checkout {
 	float: left;;
 }
 .list-rate .box-content .left img {
-	width: 80px;
-	height: 80px;
+	width: 90px;
+	height: 90px;
 	border-radius: 50%;
 	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
 }
 .list-rate .box-content .time-rate{
 	font-size: 12px;

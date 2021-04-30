@@ -67,7 +67,7 @@
 
 															<td><c:choose>
 																	<c:when test="${user.avatar != null}">
-																		<img src="${path }/files/${user.avatar}"
+																		<img src="${user.avatar}"
 																			class="img-fluid"
 																			style="max-height: 80px; margin: auto; display: block" />
 																	</c:when>

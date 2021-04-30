@@ -88,7 +88,7 @@
 												style="max-height: 200px;">
 										</c:when>
 										<c:otherwise>
-											<img src="${path }/files/${user.avatar }" alt=""
+											<img src="${user.avatar }" alt=""
 												style="max-height: 200px;">
 										</c:otherwise>
 									</c:choose>

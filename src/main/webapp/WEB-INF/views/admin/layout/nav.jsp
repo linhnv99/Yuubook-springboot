@@ -19,7 +19,7 @@
 					aria-expanded="false"> 
 					<c:choose>
 						<c:when test="${adminLogin.avatar != null }">
-							<img src="${path}/files/${adminLogin.avatar}" alt="">
+							<img src="${adminLogin.avatar}" alt="">
 						</c:when>
 						<c:otherwise>
 							<img src="${path}/images/user.png" alt="">

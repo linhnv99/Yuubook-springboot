@@ -1,5 +1,7 @@
 package com.devpro.yuubook.repositories;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -42,4 +44,7 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
 
 	@Query(value = "select * from book where hot = 1 and status = 1", nativeQuery = true)
 	Page<Book> getAllByHot(Pageable pageable);
+
+	@Query(value = "select * from book where status = 1 and DATE(created_date) = ?1", nativeQuery = true)
+	List<Book> findByCreateDate(LocalDate today);
 }

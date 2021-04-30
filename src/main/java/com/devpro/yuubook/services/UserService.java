@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.devpro.yuubook.models.entities.User;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 	
@@ -23,4 +24,5 @@ public interface UserService {
 
 	void removeFavoriteBookByUserLogin(User userLogin, int id);
 
+    User updateAvatar(MultipartFile file, User userLogin) throws IOException;
 }
