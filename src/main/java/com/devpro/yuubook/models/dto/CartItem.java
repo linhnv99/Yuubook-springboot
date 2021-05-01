@@ -10,6 +10,7 @@ public class CartItem {
     private BigDecimal originPrice;
     private Integer discount;
     private int quantity;
+    private String slug;
 
     public int getBookId() {
         return bookId;
@@ -76,4 +77,11 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 }

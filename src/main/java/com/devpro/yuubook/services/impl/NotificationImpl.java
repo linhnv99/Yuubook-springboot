@@ -128,6 +128,7 @@ public class NotificationImpl implements NotificationService {
                     BookOut bookOut = new BookOut();
                     bookOut.setId(it.getId());
                     bookOut.setName(it.getName());
+                    bookOut.setSlug(it.getSlug());
                     return bookOut;
                 }).collect(Collectors.toList());
     }

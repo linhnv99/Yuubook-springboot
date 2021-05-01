@@ -47,4 +47,6 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
 
 	@Query(value = "select * from book where status = 1 and DATE(created_date) = ?1", nativeQuery = true)
 	List<Book> findByCreateDate(LocalDate today);
+
+    Book findBySlug(String slug);
 }

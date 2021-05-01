@@ -7,7 +7,7 @@
 <form:form action="/admin/author/save" enctype="multipart/form-data"
 	modelAttribute="author" method="post">
 	<div class="modal-header">
-		<h5 class="modal-title" id="author">${(isAdd) ? 'Thêm' : 'Sửa' }
+		<h5 class="modal-title" id="author">${isAdd ? 'Thêm' : 'Sửa' }
 			tác giả</h5>
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close">
@@ -44,7 +44,7 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		<button type="submit" class="btn btn-primary">${(isAdd) ? 'Add' : 'Save' }</button>
+		<button type="submit" class="btn btn-primary">${isAdd ? 'Add' : 'Save' }</button>
 	</div>
 </form:form>
 <script src="${path }/admin/vendors/ckeditor/ckeditor.js"></script>

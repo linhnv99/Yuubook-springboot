@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.devpro.yuubook.services.mappers.AuthorMapper;
 import com.devpro.yuubook.utils.FileUtils;
+import com.devpro.yuubook.utils.FuncUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,7 @@ public class AuthorServiceImpl implements AuthorService {
         if (!authorIn.getFile().isEmpty()) {
             saveImage(authorIn);
         }
+        authorIn.setSlug(FuncUtils.toSlug(authorIn.getName()));
         return authorRepo.save(authorIn);
     }
 
@@ -72,5 +74,10 @@ public class AuthorServiceImpl implements AuthorService {
     public List<AuthorDTO> getAuthorWithLimitedProduct(int limit) {
         List<Author> authors = authorRepo.getAllAuthorWithProductOrderByCreateDateDesc();
         return authorMapper.toDTO(authors, limit);
+    }
+
+    @Override
+    public Author getBySlug(String slug) {
+        return authorRepo.findBySlug(slug);
     }
 }

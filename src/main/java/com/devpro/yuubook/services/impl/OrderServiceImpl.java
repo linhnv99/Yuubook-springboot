@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.devpro.yuubook.models.bo.Oauth2UserDetail;
 import com.devpro.yuubook.models.dto.OrderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import com.devpro.yuubook.models.dto.CartItem;
@@ -42,9 +45,14 @@ public class OrderServiceImpl implements OrderService {
 	public void saveOrder(List<CartItem> cartItems, CustomerAddress customerAddress) {
 		User user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-			User userLogin = (User) authentication.getPrincipal();
-			user = userService.getUserByEmail(userLogin.getEmail());
+		if (authentication instanceof UsernamePasswordAuthenticationToken) {
+			User u = (User) authentication.getPrincipal();
+			user = userService.getUserByEmail(u.getEmail());
+		}
+
+		if (authentication instanceof OAuth2AuthenticationToken) {
+			Oauth2UserDetail oauth2UserDetail = (Oauth2UserDetail) authentication.getPrincipal();
+			user = userService.getUserByEmail(oauth2UserDetail.getEmail());
 		}
 
 		Order order = new Order();

@@ -30,4 +30,5 @@ public interface CategoryRepo extends JpaRepository<Category, Integer> {
 			+ "order by c.createdDate asc, b.createdDate desc")
 	List<Category> getAllSubCategoryWithProduct();
 
+    Category findBySlug(String slug);
 }

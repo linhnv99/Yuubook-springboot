@@ -44,6 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
             categoryIn.setStatus(true);
             categoryIn.setCreatedDate(LocalDateTime.now());
         }
+        categoryIn.setSlug(FuncUtils.toSlug(categoryIn.getName()));
         return categoryRepo.save(categoryIn);
     }
 
@@ -105,5 +106,10 @@ public class CategoryServiceImpl implements CategoryService {
             categoryDTOs.add(categoryDTO);
         }
         return categoryDTOs;
+    }
+
+    @Override
+    public Category getBySlug(String slug) {
+        return categoryRepo.findBySlug(slug);
     }
 }

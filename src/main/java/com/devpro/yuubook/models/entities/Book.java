@@ -84,6 +84,8 @@ public class Book extends BaseEntity {
     @Column(name = "description", columnDefinition = "text")
     private String desc;
 
+    private String slug;
+
     @Transient
     private MultipartFile file;
 

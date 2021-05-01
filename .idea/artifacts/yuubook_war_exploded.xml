@@ -102,6 +102,7 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-oauth2-core:5.4.6" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-oauth2-jose:5.4.6" />
           <element id="library" level="project" name="Maven: com.nimbusds:nimbus-jose-jwt:8.20.2" />
+          <element id="library" level="project" name="Maven: javax.el:el-api:2.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

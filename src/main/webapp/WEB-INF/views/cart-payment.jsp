@@ -59,10 +59,10 @@
 										<c:forEach items="${GIO_HANG.cartItems }" var="book">
 											<tr>
 												<td width="45%" class="pr-2"><a
-													href="${path }/product/detail/${book.bookId}"> <img
+													href="${path }/san-pham/${book.slug}"> <img
 														style="max-height: 100px"
 														src="${path}/files/${book.avatar}" class="img-fluid">
-												</a> <a href="${path }/product/detail/${book.bookId}"
+												</a> <a href="${path }/san-pham/${book.slug}"
 													class="book-link">${book.bookName }</a></td>
 												<td width="25%">
 													<div class="quantity" id="q-cart">
@@ -177,6 +177,7 @@
 		<!--footer  -->
 		<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 		<!--end footer  -->
+
 		<div class="cube-overlay">
 			<div id="loader-cube">
 				<div class="thecube">
@@ -191,6 +192,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<!-- end-wrapper -->
 </body>

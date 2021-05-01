@@ -78,7 +78,7 @@ th, td, .order-deleted {
 							<c:forEach items="${categories }" var="category">
 								<c:if test="${category.parentId == null  && category.status}">
 									<li><a
-										href="${pageContext.request.contextPath }/product/cate/${category.id}">${category.name }
+										href="${path}/the-loai/${category.slug}">${category.name }
 											<c:if test="${category.subCategories.size() > 0 }">
 												<img class="arrow" src="images/right-arrow.png" alt="">
 											</c:if>
@@ -87,7 +87,7 @@ th, td, .order-deleted {
 												<span>${category.name }</span>
 												<c:forEach items="${category.subCategories }" var="subCate">
 													<c:if test="${subCate.status }">
-														<li><a href="${path }/product/cate/${subCate.id}">${subCate.name }</a></li>
+														<li><a href="${path }/the-loai/${subCate.slug}">${subCate.name }</a></li>
 													</c:if>
 												</c:forEach>
 											</ul></li>
@@ -197,7 +197,7 @@ th, td, .order-deleted {
 												<c:forEach items="${order.orderDetails }" var="orderDetail">
 													<tr>
 														<td><a
-															href="${path }/product/detail/${orderDetail.book.id}">${orderDetail.book.name }</a></td>
+															href="${path }/san-pham/${orderDetail.book.slug}">${orderDetail.book.name }</a></td>
 														<td><img
 															src="${path }/files/${orderDetail.book.avatar}"
 															class="img-fluid" style="max-height: 90px"></td>

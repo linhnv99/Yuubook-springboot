@@ -30,7 +30,7 @@
 							<c:forEach items="${categories }" var="category">
 								<c:if test="${category.parentId == null  && category.status}">
 									<li><a
-										href="${pageContext.request.contextPath }/product/cate/${category.id}">${category.name }
+										href="${path }/the-loai/${category.slug}">${category.name }
 											<c:if test="${category.subCategories.size() > 0 }">
 												<img class="arrow" src="images/right-arrow.png" alt="">
 											</c:if>
@@ -38,7 +38,7 @@
 											<ul class="submenu">
 												<span>${category.name }</span>
 												<c:forEach items="${category.subCategories }" var="subCate">
-													<li><a href="${path }/product/cate/${subCate.id}">${subCate.name }</a></li>
+													<li><a href="${path }/the-loai/${subCate.slug}">${subCate.name }</a></li>
 												</c:forEach>
 											</ul></li>
 								</c:if>

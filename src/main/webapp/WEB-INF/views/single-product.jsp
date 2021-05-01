@@ -50,7 +50,7 @@
                         <c:forEach items="${categories }" var="category">
                             <c:if test="${category.parentId == null  && category.status}">
                                 <li><a
-                                href="${pageContext.request.contextPath }/product/cate/${category.id}">${category.name }
+                                href="${path}/the-loai/${category.slug}">${category.name }
                                 <c:if test="${category.subCategories.size() > 0 }">
                                     <img class="arrow" src="${path }/images/right-arrow.png"
                                          alt="">
@@ -60,7 +60,7 @@
                                     <span>${category.name }</span>
                                     <c:forEach items="${category.subCategories }" var="subCate">
                                         <c:if test="${subCate.status }">
-                                            <li><a href="${path }/product/cate/${subCate.id}">${subCate.name }</a></li>
+                                            <li><a href="${path }/the-loai/${subCate.slug}">${subCate.name }</a></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -83,14 +83,14 @@
                 <c:choose>
                     <c:when test="${book.category.parentId != null }">
                         <li><a
-                                href="${path }/product/cate/${book.category.parentId.id}">${book.category.parentId.name }</a>
+                                href="${path }/the-loai/${book.category.parentId.slug}">${book.category.parentId.name }</a>
                             <img src="${path }/images/right-arrow.png"></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${path }/product/cate/${book.category.id}">${book.category.name }</a></li>
+                        <li><a href="${path }/the-loai/${book.category.slug}">${book.category.name }</a></li>
                     </c:otherwise>
                 </c:choose>
-                <li><a href="${path }/product/detail/${book.id}">${book.name }</a>
+                <li><a href="${path }/san-pham/${book.slug}">${book.name }</a>
                 </li>
             </ul>
             <div class="line-gray"></div>
@@ -266,9 +266,9 @@
                                                 </c:forTokens>
                                                 ...
                                             </c:if>
-                                            <a href="${path }/author/${book.author.id}"
+                                            <a href="${path }/tac-gia/${book.author.slug}"
                                                class="more-info-tacgia">Xem tất cả sách của tác giả</a> <a
-                                                href="${path }/author/${book.author.id}"
+                                                href="${path }/tac-gia/${book.author.slug}"
                                                 class="more-info-tacgia">Xem thêm</a>
                                         </div>
                                     </div>
@@ -299,7 +299,7 @@
                                                     value="${myDate }" pattern="yyyy"/>
 												</span></li>
                                             <li><span>Thể loại: </span><a class="cate-desc"
-                                                                          href="${path }/product/cate/${book.category.id}">
+                                                                          href="${path }/the-loai/${book.category.slug}">
                                                 ${book.category.name }</a></li>
                                         </ul>
                                     </div>

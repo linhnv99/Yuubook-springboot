@@ -29,7 +29,7 @@
                         <c:forEach items="${categories }" var="category">
                             <c:if test="${category.parentId == null  && category.status}">
                                 <li><a
-                                href="${pageContext.request.contextPath }/product/cate/${category.id}">${category.name }
+                                href="${path}/the-loai/${category.slug}">${category.name }
                                 <c:if test="${category.subCategories.size() > 0 }">
                                     <img class="arrow" src="${path }/images/right-arrow.png"
                                          alt="">
@@ -39,7 +39,7 @@
                                     <span>${category.name }</span>
                                     <c:forEach items="${category.subCategories }" var="subCate">
                                         <c:if test="${subCate.status }">
-                                            <li><a href="${path }/product/cate/${subCate.id}">${subCate.name }</a></li>
+                                            <li><a href="${path }/the-loai/${subCate.slug}">${subCate.name }</a></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -62,11 +62,11 @@
             <li><a href="${path }/">Trang chủ</a></li>
             <li><img src="${path }/images/right-arrow.png"
                      class="img-fluid"><a
-                    href="${path }/product/cate/${parentCateSelected.id}">${parentCateSelected.name }</a></li>
+                    href="${path }/the-loai/${parentCateSelected.slug}">${parentCateSelected.name }</a></li>
             <c:if test="${not empty CATALOG_SELECTED }">
                 <li><img src="${path }/images/right-arrow.png"
                          class="img-fluid"><a
-                        href="${path }/product/cate/${CATALOG_SELECTED.id}">${CATALOG_SELECTED.name }</a></li>
+                        href="${path }/the-loai/${CATALOG_SELECTED.slug}">${CATALOG_SELECTED.name }</a></li>
             </c:if>
         </ul>
     </div>
@@ -87,7 +87,7 @@
                                             <c:if test="${subCate.status }">
                                                 <li
                                                         class="${CATALOG_SELECTED.id == subCate.id ? 'active' : '' }"><a
-                                                        href="${path }/product/cate/${subCate.id}">${subCate.name }</a>
+                                                        href="${path }/the-loai/${subCate.slug}">${subCate.name }</a>
                                                 </li>
                                             </c:if>
                                         </c:forEach>
@@ -99,7 +99,7 @@
                             <span class="title">Tác giả</span>
                             <ul>
                                 <c:forEach items="${author }" var="author">
-                                    <li><a href="${path }/author/${author.id}">${author.name }</a></li>
+                                    <li><a href="${path }/tac-gia/${author.slug}">${author.name }</a></li>
                                 </c:forEach>
                             </ul>
                         </div>
@@ -149,7 +149,7 @@
                                                                     <span class="stop-sell">Tạm dừng bán</span>
                                                                 </c:if>
                                                                 <div class="book-img">
-                                                                    <a href="${path }/product/detail/${book.id}"> <img
+                                                                    <a href="${path }/san-pham/${book.slug}"> <img
                                                                             src="${path}/files/${book.avatar }" alt=""
                                                                             class="img-fluid" style="height: 235px">
                                                                     </a>
@@ -159,7 +159,7 @@
                                                                 </div>
                                                                 <div class="info-book-text">
                                                                     <div class="title">
-                                                                        <a href="${path }/product/detail/${book.id}"
+                                                                        <a href="${path }/san-pham/${book.slug}"
                                                                            class="book-link h4x"> <c:set var="myStr"
                                                                                                          value="${fn:split(book.name, ' ') }"></c:set>
                                                                             <c:forEach
@@ -246,19 +246,19 @@
                             <ul>
                                 <c:if test="${currentPage > 1 }">
                                     <li><a
-                                            href="${path }/product/cate/${CATALOG_SELECTED.id}?${sortParam }page=${currentPage - 1}"><img
+                                            href="${path }/the-loai/${CATALOG_SELECTED.slug}?${sortParam }page=${currentPage - 1}"><img
                                             src="${path}/images/left-arrow.png" alt=""></a></li>
                                 </c:if>
 
                                 <c:forEach var="i" begin="1" end="${totalPages }">
                                     <li><a
-                                            href="${path }/product/cate/${CATALOG_SELECTED.id}?${sortParam }page=${i}"
+                                            href="${path }/the-loai/${CATALOG_SELECTED.slug}?${sortParam }page=${i}"
                                             class="${i == currentPage ? 'active' : ''}">${i }</a></li>
                                 </c:forEach>
 
                                 <c:if test="${currentPage < totalPages }">
                                     <li><a
-                                            href="${path }/product/cate/${CATALOG_SELECTED.id}?${sortParam }page=${currentPage + 1}"><img
+                                            href="${path }/the-loai/${CATALOG_SELECTED.slug}?${sortParam }page=${currentPage + 1}"><img
                                             src="${path}/images/right-arrow.png" alt=""></a></li>
                                 </c:if>
                             </ul>
@@ -272,7 +272,7 @@
                                 <div class="mainbox2-content" id="mainbox2-content">
                                     <div class="mainbox2-title mt-0" id="mainbox2-title">
 											<span>${categoryDTO.category.name } <a
-                                                    href="${path }/product/cate/${categoryDTO.category.id}">
+                                                    href="${path }/the-loai/${categoryDTO.category.slug}">
 													Xem thêm</a></span>
                                     </div>
                                     <div class="mainbox-body">
@@ -289,7 +289,7 @@
                                                                             <span class="stop-sell">Tạm dừng bán</span>
                                                                         </c:if>
                                                                         <div class="book-img">
-                                                                            <a href="${path }/product/detail/${book.id}">
+                                                                            <a href="${path }/san-pham/${book.slug}">
                                                                                 <img
                                                                                         src="${path}/files/${book.avatar }"
                                                                                         alt=""
@@ -302,7 +302,7 @@
                                                                         </div>
                                                                         <div class="info-book-text">
                                                                             <div class="title">
-                                                                                <a href="${path }/product/detail/${book.id} "
+                                                                                <a href="${path }/san-pham/${book.slug} "
                                                                                    class="book-link h4x"> <c:set
                                                                                         var="myStr"
                                                                                         value="${fn:split(book.name, ' ') }"></c:set>

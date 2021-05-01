@@ -13,4 +13,6 @@ public interface AuthorRepo extends JpaRepository<Author, Integer> {
 
 	@Query("select distinct a from Author a left join fetch a.books b  where a.id = b.author.id order by b.createdDate desc")
 	List<Author> getAllAuthorWithProductOrderByCreateDateDesc();
+
+    Author findBySlug(String slug);
 }

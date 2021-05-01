@@ -18,4 +18,6 @@ public interface AuthorService {
     void updateShowHomeByAuthorId(int id);
 
     List<AuthorDTO> getAuthorWithLimitedProduct(int l);
+
+    Author getBySlug(String slug);
 }

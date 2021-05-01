@@ -42,4 +42,6 @@ public class Category extends BaseEntity{
 
 	@Column(name = "show_home")
 	private boolean showHome;
+
+	private String slug;
 }

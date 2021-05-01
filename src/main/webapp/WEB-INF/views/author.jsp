@@ -31,7 +31,7 @@
 							<c:forEach items="${categories }" var="category">
 								<c:if test="${category.parentId == null  && category.status}">
 									<li><a
-										href="${pageContext.request.contextPath }/product/cate/${category.id}">${category.name }
+										href="${path}/the-loai/${category.slug}">${category.name }
 											<c:if test="${category.subCategories.size() > 0 }">
 												<img class="arrow" src="images/right-arrow.png" alt="">
 											</c:if>
@@ -40,7 +40,7 @@
 												<span>${category.name }</span>
 												<c:forEach items="${category.subCategories }" var="subCate">
 													<c:if test="${subCate.status }">
-														<li><a href="${path }/product/cate/${subCate.id}">${subCate.name }</a></li>
+														<li><a href="${path }/the-loai/${subCate.slug}">${subCate.name }</a></li>
 													</c:if>
 												</c:forEach>
 											</ul></li>
@@ -79,7 +79,7 @@
 									<span class="title">Tác giả</span>
 									<ul>
 										<c:forEach items="${authors }" var="author">
-											<li><a href="${path }/author/${author.id}">${author.name }</a></li>
+											<li><a href="${path }/tac-gia/${author.slug}">${author.name }</a></li>
 										</c:forEach>
 									</ul>
 								</div>
@@ -101,7 +101,7 @@
 												style="max-height: 250px" class="img-fluid">
 										</c:if>
 										<div class="info-tacgia">
-											<span><a href="${path }/author/${authorSelected.id}">${authorSelected.name }</a></span>
+											<span><a href="${path }/tac-gia/${authorSelected.slug}">${authorSelected.name }</a></span>
 											<p>${authorSelected.desc }</p>
 										</div>
 									</div>
@@ -118,11 +118,11 @@
 									<div class="sort-by">
 										<span class="selected-sort">${SORT }</span>
 										<div class="sort-tmp">
-											<a class="${SORT == 'newest' ? 'active' : '' }" href="${path }/author/${authorSelected.id}?sort=newest">Mới nhất</a>
-											<a class="${SORT == 'az' ? 'active' : '' }" href="${path }/author/${authorSelected.id}?sort=az">A đến Z</a>
-											<a class="${SORT == 'za' ? 'active' : '' }" href="${path }/author/${authorSelected.id}?sort=za">Z đến A</a>
-											<a class="${SORT == 'minmax' ? 'active' : '' }" href="${path }/author/${authorSelected.id}?sort=minmax">Giá thấp nhất</a>
-											<a class="${SORT == 'maxmin' ? 'active' : '' }" href="${path }/author/${authorSelected.id}?sort=maxmin">Giá cao nhất</a>
+											<a class="${SORT == 'newest' ? 'active' : '' }" href="${path }/tac-gia/${authorSelected.slug}?sort=newest">Mới nhất</a>
+											<a class="${SORT == 'az' ? 'active' : '' }" href="${path }/tac-gia/${authorSelected.slug}?sort=az">A đến Z</a>
+											<a class="${SORT == 'za' ? 'active' : '' }" href="${path }/tac-gia/${authorSelected.slug}?sort=za">Z đến A</a>
+											<a class="${SORT == 'minmax' ? 'active' : '' }" href="${path }/tac-gia/${authorSelected.slug}?sort=minmax">Giá thấp nhất</a>
+											<a class="${SORT == 'maxmin' ? 'active' : '' }" href="${path }/tac-gia/${authorSelected.slug}?sort=maxmin">Giá cao nhất</a>
 										</div>
 									</div>
 								</div>
@@ -137,7 +137,7 @@
 														<span class="stop-sell">Tạm dừng bán</span>
 													</c:if>
 													<div class="book-img">
-														<a href="${path }/product/detail/${book.id}"> <img
+														<a href="${path }/san-pham/${book.slug}"> <img
 															src="${path}/files/${book.avatar }" alt=""
 															class="img-fluid" style="height: 235px">
 														</a>
@@ -147,7 +147,7 @@
 													</div>
 													<div class="info-book-text">
 														<div class="title">
-															<a href="${path }/product/detail/${book.id}"
+															<a href="${path }/san-pham/${book.slug}"
 																class="book-link h4x"> <c:set var="myStr"
 																	value="${fn:split(book.name, ' ') }"></c:set> <c:forEach
 																	items="${myStr }" var="str" begin="0" end="8"
@@ -220,19 +220,19 @@
 							<ul>
 								<c:if test="${currentPage > 1 }">
 									<li><a
-										href="${path }/author/${authorSelected.id}?${sortParam}page=${currentPage - 1}"><img
+										href="${path }/tac-gia/${authorSelected.slug}?${sortParam}page=${currentPage - 1}"><img
 											src="${path}/images/left-arrow.png" alt=""></a></li>
 								</c:if>
 
 								<c:forEach var="i" begin="1" end="${totalPages }">
 									<li><a
-										href="${path }/author/${authorSelected.id}?${sortParam}page=${i}"
+										href="${path }/tac-gia/${authorSelected.slug}?${sortParam}page=${i}"
 										class="${i == currentPage ? 'active' : ''}">${i }</a></li>
 								</c:forEach>
 
 								<c:if test="${currentPage < totalPages }">
 									<li><a
-										href="${path }/author/${authorSelected.id}?${sortParam}page=${currentPage + 1}"><img
+										href="${path }/tac-gia/${authorSelected.slug}?${sortParam}page=${currentPage + 1}"><img
 											src="${path}/images/right-arrow.png" alt=""></a></li>
 								</c:if>
 							</ul>

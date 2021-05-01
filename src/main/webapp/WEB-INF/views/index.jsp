@@ -40,7 +40,7 @@
 							<c:forEach items="${categories }" var="category">
 								<c:if test="${category.parentId == null  && category.status}">
 									<li><a
-										href="${pageContext.request.contextPath }/product/cate/${category.id}">${category.name }
+										href="${path }/the-loai/${category.slug}">${category.name }
 											<c:if test="${category.subCategories.size() > 0 }">
 												<img class="arrow" src="images/right-arrow.png" alt="">
 											</c:if>
@@ -48,7 +48,7 @@
 											<ul class="submenu">
 												<span>${category.name }</span>
 												<c:forEach items="${category.subCategories }" var="subCate">
-													<li><a href="${path }/product/cate/${subCate.id}">${subCate.name }</a></li>
+													<li><a href="${path }/the-loai/${subCate.slug}">${subCate.name }</a></li>
 												</c:forEach>
 											</ul></li>
 								</c:if>
@@ -156,7 +156,7 @@
 											</c:choose>
 											<div class="info-tacgia">
 												<span><a
-													href="${path }/author/${authorDTO.author.id}">${authorDTO.author.name }</a></span>
+													href="${path }/tac-gia/${authorDTO.author.slug}">${authorDTO.author.name }</a></span>
 												<p>
 													<c:forTokens items="${authorDTO.author.desc }" delims=" "
 														var="mySplit" varStatus="loop" begin="0" end="80">
@@ -164,7 +164,7 @@
 																		<c:if test="${loop.index > 79}">...</c:if>
 													</c:forTokens>
 												</p>
-												<a href="${path }/author/${authorDTO.author.id}">Xem
+												<a href="${path }/tac-gia/${authorDTO.author.slug}">Xem
 													thêm</a>
 											</div>
 										</div>
@@ -175,11 +175,11 @@
 														<div class="col-4">
 															<div class="book-content">
 																<a class="book-img"
-																	href="${path }/product/detail/${book.id}"><img
+																	href="${path }/san-pham/${book.slug}"><img
 																	style="max-width: 60px;"
 																	src="${path }/files/${book.avatar}" alt=""
 																	class="img-fluid"></a> <a class="book-link"
-																	href="${path }/product/detail/${book.id}"> <c:forTokens
+																	href="${path }/san-pham/${book.slug}"> <c:forTokens
 																		items="${book.name }" delims=" " var="mySplit"
 																		varStatus="loop" begin="0" end="9">
 																		${mySplit}
@@ -205,7 +205,7 @@
 								<div class="mainbox-content">
 									<div class="mainbox-title">
 										<span>${ categoryDTO.category.name} <a
-											href="${path }/product/cate/${categoryDTO.category.id}">
+											href="${path }/the-loai/${categoryDTO.category.slug}">
 												Xem thêm <img src="${path }images/right-arrow.png" alt=""
 												srcset="" class="img-fluid">
 										</a>
@@ -220,19 +220,19 @@
 														<div class="box-info-book">
 															<div class="info-book">
 																<div class="book-img">
-																	<a href="${path }/product/detail/${book.id}"> <img
+																	<a href="${path }/san-pham/${book.slug}"> <img
 																		src="${path }/files/${book.avatar}" alt=""
 																		style="height: 155px" class=" img-fluid">
 																	</a>
 																</div>
 																<div class="info-book-text">
 																	<div class="title">
-																		<a href="${path }/product/detail/${book.id}"
+																		<a href="${path }/san-pham/${book.slug}"
 																			class="book-link"> ${fn:substring(book.name,0,14) }
 																			<c:if test="${fn:length(book.name) > 14 }">...</c:if>
 																		</a> <span class="tacgia">${book.author.name }</span>
 																	</div>
-																	<a href="${path }/product/detail/${book.id}"
+																	<a href="${path }/san-pham/${book.slug}"
 																		class="text-book-nd"> <c:forTokens
 																			items="${book.desc }" delims=" " var="mySplit"
 																			varStatus="loop" begin="0" end="12">
@@ -322,7 +322,7 @@
 								<div class="mainbox-content">
 									<div class="mainbox-title">
 										<span>${ categoryDTO.category.name} <a
-											href="${path }/product/cate/${categoryDTO.category.id}">
+											href="${path }/the-loai/${categoryDTO.category.slug}">
 												Xem thêm <img src="${path }images/right-arrow.png" alt=""
 												srcset="" class="img-fluid">
 										</a>
@@ -337,19 +337,19 @@
 														<div class="box-info-book">
 															<div class="info-book">
 																<div class="book-img">
-																	<a href="${path }/product/detail/${book.id}"> <img
+																	<a href="${path }/san-pham/${book.slug}"> <img
 																		src="${path }/files/${book.avatar}" alt=""
 																		style="height: 155px" class=" img-fluid">
 																	</a>
 																</div>
 																<div class="info-book-text">
 																	<div class="title">
-																		<a href="${path }/product/detail/${book.id}"
+																		<a href="${path }/san-pham/${book.slug}"
 																			class="book-link"> ${fn:substring(book.name,0,14) }
 																			<c:if test="${fn:length(book.name) > 14 }">...</c:if>
 																		</a> <span class="tacgia">${book.author.name }</span>
 																	</div>
-																	<a href="${path }/product/detail/${book.id}"
+																	<a href="${path }/san-pham/${book.slug}"
 																		class="text-book-nd"> <c:forTokens
 																			items="${book.desc }" delims=" " var="mySplit"
 																			varStatus="loop" begin="0" end="12">
@@ -406,14 +406,14 @@
 											<li>
 												<div class="box-info-book-right">
 													<div class="book-img">
-														<a href="${path }/product/detail/${book.id}"> <img
+														<a href="${path }/san-pham/${book.slug}"> <img
 															src="${path }/files/${book.avatar}"
 															style="height: 74px; min-width: 50px; max-width: 50px"
 															class="img-fluid">
 														</a>
 													</div>
 													<div class="info-book-text">
-														<a href="${path }/product/detail/${book.id}"
+														<a href="${path }/san-pham/${book.slug}"
 															class="book-link"> ${book.name }</a> <span
 															class="info-tacgia">${book.author.name }</span>
 														<div class="box-info-book-price">
@@ -450,14 +450,14 @@
 													<li>
 														<div class="box-info-book-right">
 															<div class="book-img">
-																<a href="${path }/product/detail/${book.id}"> <img
+																<a href="${path }/san-pham/${book.slug}"> <img
 																	src="${path }/files/${book.avatar}"
 																	style="height: 74px; min-width: 50px; max-width: 50px"
 																	class="img-fluid">
 																</a>
 															</div>
 															<div class="info-book-text">
-																<a href="${path }/product/detail/${book.id}"
+																<a href="${path }/san-pham/${book.slug}"
 																	class="book-link"> ${book.name }</a> <span
 																	class="info-tacgia">${book.author.name }</span>
 																<div class="box-info-book-price">

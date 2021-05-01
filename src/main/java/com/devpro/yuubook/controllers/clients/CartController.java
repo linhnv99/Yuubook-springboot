@@ -77,6 +77,7 @@ public class CartController extends BaseController {
 		cartItem.setOriginPrice(book.getPrice());
 		cartItem.setAvatar(book.getAvatar());
 		cartItem.setDiscount(book.getDiscount());
+		cartItem.setSlug(book.getSlug());
 
 		Cart cart = null;
 

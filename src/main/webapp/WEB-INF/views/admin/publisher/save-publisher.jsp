@@ -7,7 +7,7 @@
 <form:form action="/admin/publisher/save"
 	modelAttribute="publisher" method="post">
 	<div class="modal-header">
-		<h5 class="modal-title" id="author">${(isAdd) ? 'Thêm' : 'Sửa' }
+		<h5 class="modal-title" id="author">${isAdd ? 'Thêm' : 'Sửa' }
 			nhà xuất bản</h5>
 		<button type="button" class="close" data-dismiss="modal"
 			aria-label="Close">
@@ -29,6 +29,6 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		<button type="submit" class="btn btn-primary">${(isAdd) ? 'Add' : 'Save' }</button>
+		<button type="submit" class="btn btn-primary">${isAdd ? 'Add' : 'Save' }</button>
 	</div>
 </form:form>

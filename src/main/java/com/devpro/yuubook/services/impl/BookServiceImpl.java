@@ -79,6 +79,7 @@ public class BookServiceImpl implements BookService {
             saveFile(bookIn);
         }
         bookIn.setStatus(true);
+        bookIn.setSlug(FuncUtils.toSlug(bookIn.getName()));
         return bookRepo.save(bookIn);
     }
 
@@ -196,5 +197,10 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> ajaxSearchBooksByKeyword(String keyword, int limit) {
         List<Book> books = bookRepo.getAllBookByKeyword(keyword.trim());
         return bookMapper.toDTO(books, limit);
+    }
+
+    @Override
+    public Book getBySlug(String slug) {
+        return bookRepo.findBySlug(slug);
     }
 }

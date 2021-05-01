@@ -26,7 +26,7 @@ import com.devpro.yuubook.services.BookService;
 import com.devpro.yuubook.services.CategoryService;
 
 @Controller
-public class ProductController extends BaseController implements Constant {
+public class ProductController extends BaseController {
     @Autowired
     private BookService bookService;
     @Autowired
@@ -39,39 +39,10 @@ public class ProductController extends BaseController implements Constant {
         return "author";
     }
 
-    @GetMapping("/product/cate/{id}")
-    public String getProductsByCategory(ModelMap model, HttpServletRequest request, @PathVariable("id") int id,
-                                        @RequestParam(value = "page", defaultValue = "1") int currentPage,
-                                        @RequestParam(value = "sort", defaultValue = "newest") String sortBy) {
-        HttpSession httpSession = request.getSession();
-        httpSession.setAttribute("SORT", sortBy);
-
-        Category cateSelected = categoryService.getById(id);
-        if (cateSelected.getParentId() != null) { // chọn danh mục con
-            model.addAttribute("parentCateSelected", cateSelected.getParentId());
-            httpSession.setAttribute("CATALOG_SELECTED", cateSelected);
-            Page<Book> books = bookService.getAllByCategoryAndSort(cateSelected, currentPage, sortBy, LIMITED_PRODUCT_CATEGORY);
-            List<Book> bookList = books.getContent();
-            for (Book book : bookList) {
-                book.setStarAvg(FuncUtils.calculatorStar(book));
-            }
-            model.addAttribute("books", bookList);
-            model.addAttribute("currentPage", currentPage);
-            model.addAttribute("totalPages", books.getTotalPages());
-        } else {// chọn danh mục cha
-            httpSession.removeAttribute("CATALOG_SELECTED");
-            model.addAttribute("parentCateSelected", cateSelected);
-            model.addAttribute("subCategoriesWithProducts",
-                    categoryService.getSubCategoryWithLimitedProduct(LIMITED_PRODUCT_EACH_CATEGORY));
-        }
-        model.addAttribute("author", authorService.getAll());
-        return "product-list";
-    }
-
-    @GetMapping("/product/detail/{id}")
-    public String singleProduct(ModelMap model, @PathVariable("id") Integer id) {
+    @GetMapping("/san-pham/{slug}")
+    public String singleProduct(ModelMap model, @PathVariable("slug") String slug) {
         model.addAttribute("categories", categoryService.getAllParentCategories());
-        model.addAttribute("book", bookService.getById(id));
+        model.addAttribute("book", bookService.getBySlug(slug));
         return "single-product";
     }
 
@@ -82,7 +53,8 @@ public class ProductController extends BaseController implements Constant {
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("SORT", sortBy);
 
-        Page<Book> books = bookService.getAllByCategoryAndSort(null, currentPage, sortBy, LIMITED_PRODUCT_HOT);
+        Page<Book> books = bookService.getAllByCategoryAndSort
+                (null, currentPage, sortBy, Constant.LIMITED_PRODUCT_HOT);
 
         List<Book> bookList = books.getContent();
 

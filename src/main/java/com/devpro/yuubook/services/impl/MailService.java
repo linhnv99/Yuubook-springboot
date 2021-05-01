@@ -28,8 +28,8 @@ public class MailService {
             StringBuilder bookLinks = new StringBuilder("<ul>");
 
             for (BookOut it : bookOuts)
-                bookLinks.append("<li><a href=\"http://localhost:8080/product/detail/")
-                        .append(it.getId()).append("\">")
+                bookLinks.append("<li><a href=\"http://localhost:8080/san-pham/")
+                        .append(it.getSlug()).append("\">")
                         .append(it.getName()).append("</a>")
                         .append("</li>");
 

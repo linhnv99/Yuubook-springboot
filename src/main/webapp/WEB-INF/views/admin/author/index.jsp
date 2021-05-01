@@ -193,6 +193,7 @@
 			$("#addAuthor").on("click",function(e) {
 				e.preventDefault();
 				$("#addAuthorModal").find(".modal-content").load($(this).attr("href"));
+				console.log($(this).attr("href"))
 				$("#addAuthorModal").modal();
 			})
 		})
