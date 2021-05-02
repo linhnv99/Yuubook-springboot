@@ -17,8 +17,7 @@
 </head>
 
 <body
-	onload="getDistrict(${userAddress!=null ? userAddress.provinceId : 'null'}, 
-							${userAddress!=null ? userAddress.districtId : 'null'}), 
+	onload="getDistrict(${userAddress!=null ? userAddress.provinceId : 'null'}, ${userAddress!=null ? userAddress.districtId : 'null'}),
 							getWards(${userAddress!=null ? userAddress.districtId : 'null' },
 							${userAddress!=null ? userAddress.wardsId : 'null'})">
 	<div class="wrapper" >

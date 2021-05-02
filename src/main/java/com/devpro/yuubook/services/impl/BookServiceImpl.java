@@ -201,6 +201,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBySlug(String slug) {
-        return bookRepo.findBySlug(slug);
+        Book book = bookRepo.findBySlug(slug);
+        book.setStarAvg(FuncUtils.calculatorStar(book));
+        return book;
+    }
+
+    @Override
+    public List<Book> getMostPurchasedProduct() {
+        return bookRepo.findByBuyCount();
     }
 }

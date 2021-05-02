@@ -44,7 +44,7 @@ small{
 <c:set value="${DIA_CHI_KHACH_HANG }" var="customerAddress"></c:set>
 <body
 	onload="getDistrict(${customerAddress!=null ? customerAddress.provinceId : 'null'}, 
-							${customerAddress!=null ? customerAddress.districtId : 'null'}), 
+							${customerAddress!=null ? customerAddress.districtId : 'null'}),
 							getWards(${customerAddress!=null ? customerAddress.districtId : 'null' },
 							${customerAddress!=null ? customerAddress.wardsId : 'null'})">
 	<div class="wrapper" id="bg-white">

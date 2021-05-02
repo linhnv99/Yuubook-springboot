@@ -1,35 +1,3 @@
-2021-05-01 14:36:12,267 INFO o.s.b.StartupInfoLogger [restartedMain] Starting StartWebServer using Java 15.0.1 on ASUS-X540LJ with PID 27010 (/home/linhnv/Documents/School/Yuubook-springboot/target/classes started by linhnv in /home/linhnv/Documents/School/Yuubook-springboot)
-2021-05-01 14:36:12,300 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2021-05-01 14:36:12,489 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-05-01 14:36:12,490 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-05-01 14:36:13,625 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-05-01 14:36:13,787 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 151 ms. Found 19 JPA repository interfaces.
-2021-05-01 14:36:14,610 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
-2021-05-01 14:36:14,628 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
-2021-05-01 14:36:14,629 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2021-05-01 14:36:14,631 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.45]
-2021-05-01 14:36:15,107 INFO o.a.j.l.DirectJDKLog [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2021-05-01 14:36:15,118 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2021-05-01 14:36:15,119 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2627 ms
-2021-05-01 14:36:15,298 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
-2021-05-01 14:36:15,504 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
-2021-05-01 14:36:15,583 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-05-01 14:36:15,656 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.30.Final
-2021-05-01 14:36:15,811 INFO o.h.a.c.r.j.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2021-05-01 14:36:16,100 INFO o.h.d.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-2021-05-01 14:36:17,562 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-05-01 14:36:17,575 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-05-01 14:36:17,643 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2021-05-01 14:36:17,753 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-05-01 14:36:19,780 INFO o.s.s.w.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@78109211, org.springframework.security.web.context.SecurityContextPersistenceFilter@9254850, org.springframework.security.web.header.HeaderWriterFilter@21c20671, org.springframework.security.web.authentication.logout.LogoutFilter@194747a6, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@4951360c, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6d22a16f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6dbb845e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@55f8a40a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dd9f2d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@76ae776a, org.springframework.security.web.session.SessionManagementFilter@3bba4c04, org.springframework.security.web.access.ExceptionTranslationFilter@89659a3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f03681f]
-2021-05-01 14:36:20,095 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
-2021-05-01 14:36:20,125 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
-2021-05-01 14:36:20,144 INFO o.s.b.StartupInfoLogger [restartedMain] Started StartWebServer in 9.188 seconds (JVM running for 11.452)
-2021-05-01 14:36:23,524 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-01 14:36:23,524 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
-2021-05-01 14:36:23,527 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
-2021-05-01 14:36:50,787 WARN o.s.w.s.DispatcherServlet [http-nio-8080-exec-9] No mapping for GET /product/detail/158
-2021-05-01 14:36:56,459 WARN o.s.w.s.DispatcherServlet [http-nio-8080-exec-10] No mapping for GET /san-pham/images/close.png
-2021-05-01 15:33:07,475 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2021-05-01 15:33:07,480 INFO c.z.h.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
-2021-05-01 15:33:07,491 INFO c.z.h.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2021-05-09 00:14:02,295 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-09 00:14:02,302 INFO c.z.h.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-05-09 00:14:02,305 INFO c.z.h.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.

@@ -30,28 +30,28 @@ import com.devpro.yuubook.services.UserAddressService;
 
 @Controller
 public class CartController extends BaseController {
-	@Autowired
-	private BookService bookService;
-	@Autowired
-	private ProvinceRepo provinceRepo;
-	@Autowired
-	private UserAddressService userAddressService;
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private ProvinceRepo provinceRepo;
+    @Autowired
+    private UserAddressService userAddressService;
 
-	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public String cartIndex(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		return "cart";
-	}
+    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    public String cartIndex() {
+        return "cart";
+    }
 
-	@RequestMapping(value = "/cart/delivery-address", method = RequestMethod.GET)
-	public String deliveryAddress(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		model.addAttribute("province", provinceRepo.findAll());
-		return "delivery-address";
-	}
+    @RequestMapping(value = "/cart/delivery-address", method = RequestMethod.GET)
+    public String deliveryAddress(ModelMap model) {
+        model.addAttribute("province", provinceRepo.findAll());
+        return "delivery-address";
+    }
 
-	@RequestMapping(value = "/cart/cart-payment", method = RequestMethod.GET)
-	public String cartPayment(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		return "cart-payment";
-	}
+    @RequestMapping(value = "/cart/cart-payment", method = RequestMethod.GET)
+    public String cartPayment() {
+        return "cart-payment";
+    }
 
 	@RequestMapping(value = { "/add-to-cart" }, method = RequestMethod.POST)
 	public ResponseEntity<AjaxResponse> addToCart(ModelMap model, HttpServletRequest request,
@@ -63,69 +63,66 @@ public class CartController extends BaseController {
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			customerAddress = userAddressService.getUserAddressByUserLogin(userLogin());
 		}
-		if (httpSession.getAttribute("DIA_CHI_KHACH_HANG") != null) {
-		} else {
+		if (httpSession.getAttribute("DIA_CHI_KHACH_HANG") ==  null) {
 			httpSession.setAttribute("DIA_CHI_KHACH_HANG", customerAddress);
 		}
 
-		// giỏ hàng
-		Book book = bookService.getById(cartItem.getBookId());
-		if (!book.isAct()) {
-			return ResponseEntity.ok(new AjaxResponse("Sản phẩm đã tạm dừng bán.", 400));
-		}
-		cartItem.setBookName(book.getName());
-		cartItem.setOriginPrice(book.getPrice());
-		cartItem.setAvatar(book.getAvatar());
-		cartItem.setDiscount(book.getDiscount());
-		cartItem.setSlug(book.getSlug());
+        // giỏ hàng
+        Book book = bookService.getById(cartItem.getBookId());
+        if (!book.isAct()) {
+            return ResponseEntity.ok(new AjaxResponse("Sản phẩm đã tạm dừng bán.", 400));
+        }
+        cartItem.setBookName(book.getName());
+        cartItem.setOriginPrice(book.getPrice());
+        cartItem.setAvatar(book.getAvatar());
+        cartItem.setDiscount(book.getDiscount());
+        cartItem.setSlug(book.getSlug());
 
-		Cart cart = null;
+        Cart cart = null;
 
-		if (httpSession.getAttribute("GIO_HANG") != null) {
-			cart = (Cart) httpSession.getAttribute("GIO_HANG");
-		} else {
-			cart = new Cart();
-			httpSession.setAttribute("GIO_HANG", cart);
-		}
-		List<CartItem> cartItems = cart.getCartItems();
-		boolean isExists = false;
-		for (CartItem item : cartItems) {
-			if (item.getBookId() == cartItem.getBookId()) {
-				isExists = true;
-				item.setQuantity(item.getQuantity() + cartItem.getQuantity());
-			}
-		}
-		if (!isExists) {
-			cart.getCartItems().add(cartItem);
-		}
-		cart.calTotalPrice();
-		return ResponseEntity.ok(new AjaxResponse(cart, 200));
-	}
+        if (httpSession.getAttribute("GIO_HANG") != null) {
+            cart = (Cart) httpSession.getAttribute("GIO_HANG");
+        } else {
+            cart = new Cart();
+            httpSession.setAttribute("GIO_HANG", cart);
+        }
+        List<CartItem> cartItems = cart.getCartItems();
+        boolean isExists = false;
+        for (CartItem item : cartItems) {
+            if (item.getBookId() == cartItem.getBookId()) {
+                isExists = true;
+                item.setQuantity(item.getQuantity() + cartItem.getQuantity());
+            }
+        }
+        if (!isExists) {
+            cart.getCartItems().add(cartItem);
+        }
+        cart.calTotalPrice();
+        return ResponseEntity.ok(new AjaxResponse(cart, 200));
+    }
 
-	@PostMapping("/remove-cart/{id}")
-	public ResponseEntity<AjaxResponse> removeCart(ModelMap model, @PathVariable("id") Integer id,
-			HttpServletRequest request) {
-		HttpSession httpSession = request.getSession();
-		Cart cart = (Cart) httpSession.getAttribute("GIO_HANG");
-		if(cart!= null) {
-			List<CartItem> cartItems = cart.getCartItems();
-			for (int i = 0; i < cartItems.size(); i++) {
-				if (cartItems.get(i).getBookId() == id) {
-					cart.getCartItems().remove(i);
-				}
-			}
-			cart.calTotalPrice();
-			return ResponseEntity.ok(new AjaxResponse(cart, 200));
-		}else {
-			return ResponseEntity.ok(new AjaxResponse("Không thể xóa.", 400));
-		}
-	}
+    @PostMapping("/remove-cart/{id}")
+    public ResponseEntity<AjaxResponse> removeCart(@PathVariable("id") Integer id, HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
+        Cart cart = (Cart) httpSession.getAttribute("GIO_HANG");
+        if (cart != null) {
+            List<CartItem> cartItems = cart.getCartItems();
+            for (int i = 0; i < cartItems.size(); i++) {
+                if (cartItems.get(i).getBookId() == id) {
+                    cart.getCartItems().remove(i);
+                }
+            }
+            cart.calTotalPrice();
+            return ResponseEntity.ok(new AjaxResponse(cart, 200));
+        } else {
+            return ResponseEntity.ok(new AjaxResponse("Không thể xóa.", 400));
+        }
+    }
 
-	@PostMapping("/save-customer-address")
-	public ResponseEntity<AjaxResponse> saveAddressTemp(ModelMap model, HttpServletRequest request,
-			@RequestBody CustomerAddress customerAddress) {
-		HttpSession httpSession = request.getSession();
-		httpSession.setAttribute("DIA_CHI_KHACH_HANG", customerAddress);
-		return ResponseEntity.ok(new AjaxResponse(customerAddress, 200));
-	}
+    @PostMapping("/save-customer-address")
+    public ResponseEntity<AjaxResponse> saveAddressTemp(HttpServletRequest request, @RequestBody CustomerAddress customerAddress) {
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("DIA_CHI_KHACH_HANG", customerAddress);
+        return ResponseEntity.ok(new AjaxResponse(customerAddress, 200));
+    }
 }

@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
         if (!userIn.getName().trim().isEmpty())
             user.setName(userIn.getName());
         if (!userIn.getSurname().trim().isEmpty())
-            user.setName(userIn.getSurname());
+            user.setSurname(userIn.getSurname());
         if (!userIn.getPhone().trim().isEmpty())
-            user.setName(userIn.getPhone());
+            user.setPhone(userIn.getPhone());
         if (!userIn.getPassword().trim().isEmpty())
             user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         if (userIn.getFile() != null)
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
         String fullPath = FileUtils.SAVE_PATH + "users/"
                 + file.getOriginalFilename();
         file.transferTo(new File(fullPath));
-        user.setAvatar("http://localhost:8080/files/users/" + file.getOriginalFilename());
+        user.setAvatar("http://yuubook.com.vn/files/users/" + file.getOriginalFilename());
     }
 
     @Override

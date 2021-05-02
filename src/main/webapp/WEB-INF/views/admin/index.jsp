@@ -207,6 +207,54 @@ select {
 						</div>
 					</div>
 				</div>
+
+
+
+
+
+				<div class="row mt-5">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>Top 10 sản phẩm được mua nhiều nhất</h2>
+							<div class="clearfix"></div>
+						</div>
+
+						<div class="x_content">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="card-box table-responsive">
+										<table id="" class="table-hover" style="width: 100%">
+											<thead>
+											<tr style="font-weight: bold">
+												<th width="10%">STT</th>
+												<th width="10%">Ảnh</th>
+												<th width="20%">Tên sản phẩm</th>
+												<th width="20%">Danh mục</th>
+												<th width="10%">Lượt mua</th>
+											</tr>
+											</thead>
+											<tbody>
+											<c:forEach items="${books }" var="book" varStatus="loop">
+												<tr>
+													<td>${loop.count}</td>
+													<td>
+														<img height="55" alt="avatar"
+															 src="${path}/files/${book.avatar }">
+													</td>
+													<td><a href="${path}/san-pham/${book.slug}" style="color: #000!important">${book.name}</a></td>
+													<td><span>${book.category.name }</span></td>
+													<td>${book.buyCount}</td>
+												</tr>
+											</c:forEach>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- /page content -->

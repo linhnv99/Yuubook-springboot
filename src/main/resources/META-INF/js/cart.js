@@ -21,7 +21,7 @@ function addToCart(id) {
 						if(v.bookId == id){
 							$(".wp-box").show();
 							$("#p-img").attr("src", window.location.origin + "/files/"+ v.avatar);
-							$("#p-name").attr("href", window.location.origin + "/product/detail/"+ v.bookId);
+							$("#p-name").attr("href", window.location.origin + "/san-pham/"+ v.slug);
 							$("#p-name").html(v.bookName.substring(0,30));
 							$("#js-cartNumber").html(data.obj.cartItems.length);
 						}

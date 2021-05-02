@@ -22,12 +22,6 @@ public class BaseEntity {
 
     private boolean status;
 
-    @Column(name = "created_by")
-    private Integer createdBy;
-
-    @Column(name = "updated_by")
-    private Integer updatedBy;
-
     @CreationTimestamp
     @Column(name = "created_date", columnDefinition = "datetime default now()")
     private LocalDateTime createdDate;

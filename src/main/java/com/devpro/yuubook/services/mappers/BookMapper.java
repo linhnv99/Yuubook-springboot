@@ -18,6 +18,7 @@ public class BookMapper {
                     bookDTO.setAvatar(book.getAvatar());
                     bookDTO.setAuthorName(book.getAuthor().getName());
                     bookDTO.setStatus(book.isStatus());
+                    bookDTO.setSlug(book.getSlug());
                     return bookDTO;
                 }).limit(limit).collect(Collectors.toList());
     }

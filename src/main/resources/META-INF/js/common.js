@@ -110,7 +110,7 @@ $(document).ready(function () {
                         $result.empty();
                         $.each(data.obj, function (k, v) {
                             $result.append("<li>" +
-                                "<a href='" + baseUrl + "/product/detail/" + v.id + "'>" +
+                                "<a href='" + baseUrl + "/san-pham/" + v.slug + "'>" +
                                 "<img width='40' height='40' src='" + baseUrl + "/files/" + v.avatar + "' >" + v.name +
                                 " - <span class='text-primary'>" + v.authorName + "</span></a></li>" +
                                 "</li>").show();
@@ -139,6 +139,15 @@ $(document).ready(function () {
             "content": content,
             "bookId": bookId
         }
+
+        if (title == "") {
+            alert("Tiêu đề không được để trống."); return;
+        }
+        if (content == "") {
+            alert("Nội dung không được để trống."); return;
+        }
+
+
         $.ajax({
             url: "/rate-product",
             type: "post",

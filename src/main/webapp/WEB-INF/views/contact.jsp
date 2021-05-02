@@ -69,12 +69,16 @@
 						</div>
 						<div class="col-5">
 							<div class="box-login-social">
-								<span class="title">Đăng nhập bằng tài khoản khác</span> <a
-									href="#"> <img src="images/google.png" alt=""
-									class="img-fluid gg">
-								</a> <a href="#"> <img src="images/fb.png" alt=""
-									class="img-fluid fb">
+								<span class="title">Đăng nhập bằng tài khoản khác</span>
+								<%--								<a href="#"> <img src="images/fb.png" alt="" width="220"--%>
+								<%--												  class="img-fluid fb">--%>
+								<%--								</a>--%>
+								<a
+										href="${path}/oauth2/authorization/google">
+									<img src="images/google.png" alt="" width="280"
+										 class="img-fluid gg">
 								</a>
+
 							</div>
 						</div>
 					</div>

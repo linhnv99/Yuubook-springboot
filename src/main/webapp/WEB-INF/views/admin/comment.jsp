@@ -104,7 +104,7 @@
 																		value="${myDate }" pattern="dd-MM-yyyy HH:mm:ss" /></td>
 																<td width="20%">
 																	<div class="action">
-																		<a href="${path }/product/detail/${comment.book.id}"
+																		<a href="${path }/san-pham/${comment.book.slug}"
 																			class="btn btn-info editAuthor custom"> <i
 																			class="fa fa-edit"></i></a> <a href="#"
 																			data-toggle="modal"

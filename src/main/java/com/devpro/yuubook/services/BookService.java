@@ -37,4 +37,6 @@ public interface BookService {
     List<BookDTO> ajaxSearchBooksByKeyword(String keyword, int limit);
 
     Book getBySlug(String slug);
+
+    List<Book> getMostPurchasedProduct();
 }

@@ -80,6 +80,9 @@ public class Book extends BaseEntity {
     private boolean hot;
     private boolean act;
 
+    @Column(name = "buy_count", columnDefinition = "int default 0")
+    private int buyCount;
+
     @Lob
     @Column(name = "description", columnDefinition = "text")
     private String desc;

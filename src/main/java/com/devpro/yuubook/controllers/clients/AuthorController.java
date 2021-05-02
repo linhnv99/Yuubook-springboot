@@ -43,7 +43,7 @@ public class AuthorController extends BaseController {
 
         List<Book> bookList = books.getContent();
         for (Book book : bookList)
-            FuncUtils.calculatorStar(book);
+            book.setStarAvg(FuncUtils.calculatorStar(book));
 
         model.addAttribute("books", books.getContent());
         model.addAttribute("currentPage", currentPage);

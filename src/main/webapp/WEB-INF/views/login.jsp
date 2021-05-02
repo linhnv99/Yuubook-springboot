@@ -96,7 +96,7 @@
 <%--												  class="img-fluid fb">--%>
 <%--								</a>--%>
 								<a
-									href="${path}/oauth2/authorization/google">
+									href="${path}/oauth2/authorization/google" >
 								<img src="images/google.png" alt="" width="280"
 									class="img-fluid gg">
 								</a>

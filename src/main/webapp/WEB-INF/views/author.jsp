@@ -175,21 +175,23 @@
 													</div>
 
 													<div class="rate-now mb-2" id="rate-now">
-														<c:set value="${book.starAvg + 1 }" var="starInt"></c:set>
+														<c:set value="${book.starAvg + 1 }"
+															   var="starInt"></c:set>
 														<span class="ml-0 mt-1"> <a
-															class="star ${starInt > 1 ? 'active' : '' }"
-															href="javascript:void(0)"></a> <a
-															class="star ${starInt > 2 ? 'active' : '' }"
-															href="javascript:void(0)"></a> <a
-															class="star ${starInt > 3 ? 'active' : '' }"
-															href="javascript:void(0)"></a> <a
-															class="star ${starInt > 4 ? 'active' : '' }"
-															href="javascript:void(0)"></a> <a
-															class="star ${starInt > 5 ? 'active' : '' }"
-															href="javascript:void(0)"></a> <span class="ml-2"
-															style="font-size: 12px;">( ${book.comments.size() }
-																đánh giá )</span>
-														</span>
+																class="star ${starInt > 1 ? 'active' : '' }"
+																href="javascript:void(0)"></a> <a
+																class="star ${starInt > 2 ? 'active' : '' }"
+																href="javascript:void(0)"></a> <a
+																class="star ${starInt > 3 ? 'active' : '' }"
+																href="javascript:void(0)"></a> <a
+																class="star ${starInt > 4 ? 'active' : '' }"
+																href="javascript:void(0)"></a> <a
+																class="star ${starInt > 5 ? 'active' : '' }"
+																href="javascript:void(0)"></a> <span
+																class="ml-2"
+																style="font-size: 12px;">(
+																			${book.comments.size() } đánh giá )</span>
+																	</span>
 													</div>
 
 													<div class="group-btn-buy">

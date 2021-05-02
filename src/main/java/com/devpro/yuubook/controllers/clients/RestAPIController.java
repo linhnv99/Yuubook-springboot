@@ -2,11 +2,14 @@ package com.devpro.yuubook.controllers.clients;
 
 import java.util.List;
 
+import com.devpro.yuubook.models.bo.Oauth2UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,45 +25,51 @@ import com.devpro.yuubook.services.UserService;
 
 @RestController
 public class RestAPIController {
-	@Autowired
-	private DistrictRepo districtRepo;
-	@Autowired
-	private WardsRepo wardsRepo;
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private DistrictRepo districtRepo;
+    @Autowired
+    private WardsRepo wardsRepo;
+    @Autowired
+    private UserService userService;
 
-	@PostMapping("/district/{id}")
-	public ResponseEntity<AjaxResponse> getDistrict(ModelMap model, @PathVariable("id") Integer id) {
-		List<District> districts = districtRepo.getAllById(id);
-		return ResponseEntity.ok(new AjaxResponse(districts, 200));
-	}
+    @PostMapping("/district/{id}")
+    public ResponseEntity<AjaxResponse> getDistrict(ModelMap model, @PathVariable("id") Integer id) {
+        List<District> districts = districtRepo.getAllById(id);
+        return ResponseEntity.ok(new AjaxResponse(districts, 200));
+    }
 
-	@PostMapping("/wards/{id}")
-	public ResponseEntity<AjaxResponse> getWards(ModelMap model, @PathVariable("id") Integer id) {
-		List<Wards> wards = wardsRepo.getAllById(id);
-		return ResponseEntity.ok(new AjaxResponse(wards, 200));
-	}
-	
-	@PostMapping("/favorite-book/{act}/{id}")
-	public ResponseEntity<AjaxResponse> addFavoriteBook(ModelMap model, @PathVariable("id") Integer id,
-			@PathVariable("act") String act) {
-		if(getUserLogin()== null) {
-			return ResponseEntity.ok(new AjaxResponse("Vui lòng đăng nhập.", 400));
-		}
-		if(act.equals("add")) {
-			userService.addFavoriteBookByUserLogin(getUserLogin(),id);
-		}else {
-			userService.removeFavoriteBookByUserLogin(getUserLogin(),id);
-		}
-		return ResponseEntity.ok(new AjaxResponse("Thành công", 200));
-	}
-	public User getUserLogin() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = null;
-		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-			User userLogin = (User) authentication.getPrincipal();
-			user = userService.getUserByEmail(userLogin.getEmail());
-		}
-		return user;
-	}
+    @PostMapping("/wards/{id}")
+    public ResponseEntity<AjaxResponse> getWards(ModelMap model, @PathVariable("id") Integer id) {
+        List<Wards> wards = wardsRepo.getAllById(id);
+        return ResponseEntity.ok(new AjaxResponse(wards, 200));
+    }
+
+    @PostMapping("/favorite-book/{act}/{id}")
+    public ResponseEntity<AjaxResponse> addFavoriteBook(ModelMap model, @PathVariable("id") Integer id,
+                                                        @PathVariable("act") String act) {
+        if (getUserLogin() == null) {
+            return ResponseEntity.ok(new AjaxResponse("Vui lòng đăng nhập.", 400));
+        }
+        if (act.equals("add")) {
+            userService.addFavoriteBookByUserLogin(getUserLogin(), id);
+        } else {
+            userService.removeFavoriteBookByUserLogin(getUserLogin(), id);
+        }
+        return ResponseEntity.ok(new AjaxResponse("Thành công", 200));
+    }
+
+    public User getUserLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = null;
+        if (authentication instanceof UsernamePasswordAuthenticationToken) {
+            User u = (User) authentication.getPrincipal();
+            user = userService.getUserByEmail(u.getEmail());
+        }
+
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            Oauth2UserDetail oauth2UserDetail = (Oauth2UserDetail) authentication.getPrincipal();
+            user = userService.getUserByEmail(oauth2UserDetail.getEmail());
+        }
+        return user;
+    }
 }

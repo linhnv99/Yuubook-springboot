@@ -214,8 +214,10 @@
 									<div class="mainbox-body">
 										<div class="row">
 											<c:forEach items="${categoryDTO.books }" var="book">
-												<c:if test="${book.status && book.act}">
+<%--												<c:if test="${book.status && book.act}">--%>
+												<c:if test="${book.status}">
 													<!-- one-book -->
+
 													<div class="col-4">
 														<div class="box-info-book">
 															<div class="info-book">
@@ -331,7 +333,8 @@
 									<div class="mainbox-body">
 										<div class="row">
 											<c:forEach items="${categoryDTO.books }" var="book">
-												<c:if test="${book.status && book.act}">
+<%--												<c:if test="${book.status && book.act}">--%>
+												<c:if test="${book.status}">
 													<!-- one-book -->
 													<div class="col-4">
 														<div class="box-info-book">
@@ -490,9 +493,9 @@
 			</div>
 		</div>
 		<!--end main-content -->
-		<!--footer  -->
-		<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
-		<!--end footer  -->
+			<!--footer  -->
+			<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
+			<!--end footer  -->
 	</div>
 	<!-- end-wrapper -->
 	<!-- model login -->

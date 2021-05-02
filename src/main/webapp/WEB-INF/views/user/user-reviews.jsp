@@ -163,7 +163,7 @@ th, td, .order-deleted {
 														<td>
 															<div class="action">
 																<a class="btn btn-info"
-																	href="${path }/product/detail/${comment.book.id}">Xem</a>
+																	href="${path }/san-pham/${comment.book.slug}">Xem</a>
 																<a class="delete-comment btn btn-danger"
 																	data-id="${comment.id }">Xóa</a>
 															</div>

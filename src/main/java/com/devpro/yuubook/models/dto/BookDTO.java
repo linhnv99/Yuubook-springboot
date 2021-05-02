@@ -6,6 +6,7 @@ public class BookDTO {
 	private String avatar;
 	private String authorName;
 	private Boolean status;
+	private String slug;
 	public Integer getId() {
 		return id;
 	}
@@ -36,5 +37,12 @@ public class BookDTO {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
+
+	public String getSlug() {
+		return slug;
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
 }

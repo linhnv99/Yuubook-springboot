@@ -24,12 +24,13 @@ public class AdminHomeController {
 	private BookService bookService;
 
 	@GetMapping("/dashboard")
-	public String index(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	public String index(ModelMap model) {
 		model.addAttribute("orders", orderService.getOrdersNeedConfirm());
 		model.addAttribute("totalNumberOfOrders", orderService.getTotalNumberOfOrders());
 		model.addAttribute("totalNumberOfUsers", userService.getTotalNumberOfUsers());
 		model.addAttribute("totalNumberOfProducts", bookService.getTotalNumberOfProducts(true));
 		model.addAttribute("totalSales", orderService.getTotalSales());
+		model.addAttribute("books", bookService.getMostPurchasedProduct());
 		return "admin/index";
 	}
 }

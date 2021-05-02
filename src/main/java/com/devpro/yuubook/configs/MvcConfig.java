@@ -49,25 +49,25 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/files/**").addResourceLocations("file:///home/linhnv/Documents/School/Yuubook-springboot/upload/");
     }
 
-//    @ExceptionHandler(value = Exception.class)
-//    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-//
-////		LOGGER.info(e.getMessage(), e);
-//
-//        if (e instanceof org.springframework.web.servlet.NoHandlerFoundException) { // 404
-//            // Otherwise setup and send the user to a default error-view.
-//            ModelAndView mav = new ModelAndView();
-//            mav.addObject("exception", e);
-//            mav.addObject("url", req.getRequestURL());
-//            mav.setViewName("errors/404");
-//            return mav;
-//        } else {
-//            // Otherwise setup and send the user to a default error-view.
-//            ModelAndView mav = new ModelAndView();
-//            mav.addObject("exception", e);
-//            mav.addObject("url", req.getRequestURL());
-//            mav.setViewName("errors/common");
-//            return mav;
-//        }
-//    }
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+
+//		LOGGER.info(e.getMessage(), e);
+
+        if (e instanceof org.springframework.web.servlet.NoHandlerFoundException) { // 404
+            // Otherwise setup and send the user to a default error-view.
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("exception", e);
+            mav.addObject("url", req.getRequestURL());
+            mav.setViewName("errors/404");
+            return mav;
+        } else {
+            // Otherwise setup and send the user to a default error-view.
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("exception", e);
+            mav.addObject("url", req.getRequestURL());
+            mav.setViewName("errors/404");
+            return mav;
+        }
+    }
 }
