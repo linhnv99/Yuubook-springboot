@@ -110,7 +110,7 @@ $(document).ready(function () {
                         $result.empty();
                         $.each(data.obj, function (k, v) {
                             $result.append("<li>" +
-                                "<a href='" + baseUrl + "/product/detail/" + v.id + "'>" +
+                                "<a href='" + baseUrl + "/san-pham/" + v.slug + "'>" +
                                 "<img width='40' height='40' src='" + baseUrl + "/files/" + v.avatar + "' >" + v.name +
                                 " - <span class='text-primary'>" + v.authorName + "</span></a></li>" +
                                 "</li>").show();
