@@ -22,12 +22,12 @@ public class RegisterController extends BaseController{
 	private UserService userService;
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	public String index() {
 		return "register";
 	}
 	
 	@PostMapping("/save-user")
-	public ResponseEntity<AjaxResponse> saveUser(ModelMap model, @RequestBody User user){
+	public ResponseEntity<AjaxResponse> saveUser(@RequestBody User user){
 		User userResp = userService.getUserByEmail(user.getEmail());
 		if(userResp != null) {
 			return ResponseEntity.ok(new AjaxResponse("Email đã tồn tại. Vui lòng nhập email khác.", 400));

@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.devpro.yuubook"})
 public class MvcConfig implements WebMvcConfigurer {
-//	private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MvcConf.class);
 
     @Bean
     public ViewResolver viewResolver() {
@@ -51,8 +50,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-
-//		LOGGER.info(e.getMessage(), e);
 
         if (e instanceof org.springframework.web.servlet.NoHandlerFoundException) { // 404
             // Otherwise setup and send the user to a default error-view.
