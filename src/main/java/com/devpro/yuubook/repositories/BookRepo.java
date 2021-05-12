@@ -3,6 +3,7 @@ package com.devpro.yuubook.repositories;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -53,7 +54,7 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
     @Transactional
 	@Modifying
 	@Query(value = "update book set buy_count = buy_count + 1 where id in ?1 and status = 1", nativeQuery = true)
-    void updateBuyCount(List<Integer> bookIds);
+    void updateBuyCount(Set<Integer> bookIds);
 
     @Query(value = "select * from book where status = 1 and act = 1 and buy_count > 0 order by buy_count desc limit 10", nativeQuery = true)
     List<Book> findByBuyCount();

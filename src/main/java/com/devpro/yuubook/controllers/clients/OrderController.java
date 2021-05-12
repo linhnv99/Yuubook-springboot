@@ -29,6 +29,7 @@ public class OrderController extends BaseController{
 			List<CartItem> cartItems = cart.getCartItems();
 			orderService.saveOrder(cartItems, customerAddress);
 			httpSession.removeAttribute("GIO_HANG");
+			httpSession.removeAttribute("DIA_CHI_KHACH_HANG");
 			model.addAttribute("isSuccess", true);
 		} else {
 			model.addAttribute("isSuccess", false);

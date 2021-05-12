@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.devpro.yuubook.models.bo.Oauth2UserDetail;
 import com.devpro.yuubook.models.dto.OrderFilter;
 import com.devpro.yuubook.repositories.BookRepo;
+import com.devpro.yuubook.repositories.OrderDetailRepo;
 import com.devpro.yuubook.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -42,6 +44,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private BookRepo bookRepo;
+
+    @Autowired
+    private OrderDetailRepo orderDetailRepo;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -86,7 +91,6 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(true);
         orderRepo.save(order);
 
-        setBuyCount(cartItems);
     }
 
     @Override
@@ -139,6 +143,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void setOrderStatusById(Integer id, Integer val) {
         orderRepo.setOrderStatusById(id, val);
+        if(val == 3) {
+            List<OrderDetail> orderDetails = orderDetailRepo.findByOrderId(id);
+            Set<Integer> bookIds = orderDetails.stream().map(it -> it.getBook().getId()).collect(Collectors.toSet());
+            bookRepo.updateBuyCount(bookIds);
+        }
     }
 
     @Override
@@ -188,10 +197,5 @@ public class OrderServiceImpl implements OrderService {
         Query query = entityManager.createNativeQuery(sql, Order.class);
         List<Order> orders = query.getResultList();
         return calculatePricedOrders(orders);
-    }
-
-    private void setBuyCount(List<CartItem> cartItems) {
-        List<Integer> bookIds = cartItems.stream().map(CartItem::getBookId).collect(Collectors.toList());
-        bookRepo.updateBuyCount(bookIds);
     }
 }

@@ -46,7 +46,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="card-box table-responsive table-load">
-											<table id="datatable-fixed-header" 
+											<table id="datatable-fixed-header"
 											class="table table-hover" style="width: 100%">
 												<thead>
 													<tr>
@@ -80,8 +80,9 @@
 															<td>${user.phone }</td>
 															<td>${user.email }</td>
 															<td>
-																<fmt:parseDate value="${user.createdDate }" type="both" pattern="yyyy-MM-dd'T'HH:mm:ss" var="myDate"></fmt:parseDate>
-																<fmt:formatDate value="${myDate }" pattern="dd-MM-yyyy HH:mm:ss"/>
+<%--																<fmt:parseDate value="${user.createdDate }" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="myDate"></fmt:parseDate>--%>
+<%--																<fmt:formatDate value="${myDate }" pattern="dd-MM-yyyy HH:mm"/>--%>
+		                                                            ${user.createdDate }
 															</td>
 															<td>
 															<c:forEach items="${user.roles }" var="role">

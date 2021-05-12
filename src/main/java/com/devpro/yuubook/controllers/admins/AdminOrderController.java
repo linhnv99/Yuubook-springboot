@@ -25,13 +25,13 @@ public class AdminOrderController {
 	}
 
 	@GetMapping("/order/confirm")
-	public String confirmOrder(ModelMap model, @RequestParam("id") Integer id) {
+	public String confirmOrder(@RequestParam("id") Integer id) {
 		orderService.confirmOrderById(id);
 		return "redirect:/admin/dashboard";
 	}
 
 	@PostMapping("/order/{id}/status/{val}")
-	public ResponseEntity<AjaxResponse> setStatus(ModelMap model, @PathVariable("id") Integer id,
+	public ResponseEntity<AjaxResponse> setStatus(@PathVariable("id") Integer id,
 			@PathVariable("val") Integer val) {
 		orderService.setOrderStatusById(id, val);
 		return ResponseEntity.ok(new AjaxResponse("Thành công", 200));

@@ -139,8 +139,9 @@ th, td, .order-deleted {
 													<tr>
 														<td>${loop.index + 1 }</td>
 														<td>
-															<fmt:parseDate value="${comment.date }" type="both" pattern="yyyy-MM-dd'T'HH:mm:ss" var="myDate"></fmt:parseDate>
-															<fmt:formatDate value="${myDate }" pattern="dd-MM-yyyy HH:mm:ss"/>
+<%--															<fmt:parseDate value="${comment.date }" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="myDate"></fmt:parseDate>--%>
+<%--															<fmt:formatDate value="${myDate }" pattern="dd-MM-yyyy HH:mm"/>--%>
+														${comment.date }
 														</td>
 														<td>${comment.book.name }</td>
 														<td>

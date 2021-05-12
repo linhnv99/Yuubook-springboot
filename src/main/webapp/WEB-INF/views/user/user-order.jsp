@@ -138,8 +138,9 @@ th, td, .order-deleted {
 														<td><fmt:formatNumber type="number"
 																pattern="###,###,###" value="${order.totalPriceOrder }"></fmt:formatNumber>đ</td>
 														<td>
-															<fmt:parseDate value="${order.buyDate }" type="both" pattern="yyyy-MM-dd'T'HH:mm:ss" var="myDate"></fmt:parseDate>
-															<fmt:formatDate value="${myDate }" pattern="dd-MM-yyyy HH:mm:ss"/>
+<%--															<fmt:parseDate value="${order.buyDate }" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="myDate"></fmt:parseDate>--%>
+<%--															<fmt:formatDate value="${myDate }" pattern="dd-MM-yyyy HH:mm"/>--%>
+														${order.buyDate }
 														</td>
 														<td><c:if test="${order.orderStatus == 0 }">
 																<span class="bg-secondary status"> Chờ xác nhận</span>

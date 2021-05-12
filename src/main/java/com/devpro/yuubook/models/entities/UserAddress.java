@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @Table(name = "user_address")
-public class UserAddress extends BaseEntity {
+public class    UserAddress extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

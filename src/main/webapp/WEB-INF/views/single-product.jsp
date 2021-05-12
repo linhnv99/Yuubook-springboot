@@ -398,11 +398,12 @@
 													</span>
                                             </div>
                                             <div class="time-rate">
-                                                <fmt:parseDate value="${comment.date }" type="both"
-                                                               pattern="yyyy-MM-dd'T'HH:mm:ss"
-                                                               var="myDate"></fmt:parseDate>
-                                                <fmt:formatDate value="${myDate }"
-                                                                pattern="dd-MM-yyyy HH:mm:ss"/>
+<%--                                                <fmt:parseDate value="${comment.date }" type="both"--%>
+<%--                                                               pattern="yyyy-MM-dd'T'HH:mm"--%>
+<%--                                                               var="myDate"></fmt:parseDate>--%>
+<%--                                                <fmt:formatDate value="${myDate }"--%>
+<%--                                                                pattern="dd-MM-yyyy HH:mm"/>--%>
+                                                ${comment.date }
                                                 <div class="content">
                                                     <div class="tit">${comment.title }</div>
                                                         ${comment.content }

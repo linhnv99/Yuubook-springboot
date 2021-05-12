@@ -98,10 +98,13 @@
 																</td>
 
 																<td>${comment.title }</td>
-																<td><fmt:parseDate value="${comment.date }"
-																		type="both" pattern="yyyy-MM-dd'T'HH:mm:ss"
-																		var="myDate"></fmt:parseDate> <fmt:formatDate
-																		value="${myDate }" pattern="dd-MM-yyyy HH:mm:ss" /></td>
+																<td>
+<%--																	<fmt:parseDate value="${comment.date }"--%>
+<%--																		type="both" pattern="yyyy-MM-dd'T'HH:mm"--%>
+<%--																		var="myDate"></fmt:parseDate> <fmt:formatDate--%>
+<%--																		value="${myDate }" pattern="dd-MM-yyyy HH:mm" />--%>
+																	${comment.date }
+																</td>
 																<td width="20%">
 																	<div class="action">
 																		<a href="${path }/san-pham/${comment.book.slug}"

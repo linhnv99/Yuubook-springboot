@@ -97,13 +97,12 @@
 										<small id="errPhone"></small>
 									</div>
 									<div class="input-group">
-										<label for="p-password"> Mật khẩu mới<span class="req">*</span></label>
+										<label for="p-password"> Mật khẩu mới</label>
 										<input type="password" id="p-password" value="      ">
 										<small id="errPassword"></small>
 									</div>
 									<div class="input-group">
-										<label for="confirmPass">Xác nhận mật khẩu <span
-											class="req">*</span></label> <input type="password"
+										<label for="confirmPass">Xác nhận mật khẩu</label> <input type="password"
 											id="p-confirmPassword" value="      "> <small
 											id="errConfirmPassword"></small>
 									</div>

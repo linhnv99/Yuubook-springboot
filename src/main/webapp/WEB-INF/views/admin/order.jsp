@@ -111,11 +111,12 @@
                                                                               value="${order.totalPriceOrder }"></fmt:formatNumber>đ
                                                         </td>
                                                         <td>
-                                                            <fmt:parseDate value="${order.buyDate }" type="both"
-                                                                           pattern="yyyy-MM-dd'T'HH:mm:ss"
-                                                                           var="myDate"></fmt:parseDate>
-                                                            <fmt:formatDate value="${myDate }"
-                                                                            pattern="dd-MM-yyyy HH:mm:ss"/>
+<%--                                                            <fmt:parseDate value="${order.buyDate }" type="both"--%>
+<%--                                                                           pattern="yyyy-MM-dd'T'HH:mm:ss"--%>
+<%--                                                                           var="myDate"></fmt:parseDate>--%>
+<%--                                                            <fmt:formatDate value="${myDate }"--%>
+<%--                                                                            pattern="dd-MM-yyyy HH:mm:ss"/>--%>
+                                                                ${order.buyDate }
                                                         </td>
                                                         <td>
                                                             <div class="box-status${order.id }">

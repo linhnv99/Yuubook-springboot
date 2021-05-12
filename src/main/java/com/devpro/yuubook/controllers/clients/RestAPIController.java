@@ -33,19 +33,19 @@ public class RestAPIController {
     private UserService userService;
 
     @PostMapping("/district/{id}")
-    public ResponseEntity<AjaxResponse> getDistrict(ModelMap model, @PathVariable("id") Integer id) {
+    public ResponseEntity<AjaxResponse> getDistrict(@PathVariable("id") Integer id) {
         List<District> districts = districtRepo.getAllById(id);
         return ResponseEntity.ok(new AjaxResponse(districts, 200));
     }
 
     @PostMapping("/wards/{id}")
-    public ResponseEntity<AjaxResponse> getWards(ModelMap model, @PathVariable("id") Integer id) {
+    public ResponseEntity<AjaxResponse> getWards(@PathVariable("id") Integer id) {
         List<Wards> wards = wardsRepo.getAllById(id);
         return ResponseEntity.ok(new AjaxResponse(wards, 200));
     }
 
     @PostMapping("/favorite-book/{act}/{id}")
-    public ResponseEntity<AjaxResponse> addFavoriteBook(ModelMap model, @PathVariable("id") Integer id,
+    public ResponseEntity<AjaxResponse> addFavoriteBook(@PathVariable("id") Integer id,
                                                         @PathVariable("act") String act) {
         if (getUserLogin() == null) {
             return ResponseEntity.ok(new AjaxResponse("Vui lòng đăng nhập.", 400));

@@ -114,26 +114,28 @@
                             <div class="mainbox2-title mt-0" id="mainbox2-title">
                                 <span>${CATALOG_SELECTED.name }</span>
                             </div>
-                            <div class="box-sort">
-                                <div class="title">Sắp xếp</div>
-                                <div class="sort-by">
-                                    <span class="selected-sort">${SORT }</span>
-                                    <div class="sort-tmp">
-                                        <a class="${SORT == 'newest' ? 'active' : '' }"
-                                           href="${path }/product/cate/${CATALOG_SELECTED.id}?sort=newest">Mới nhất</a>
-                                        <a class="${SORT == 'az' ? 'active' : '' }"
-                                           href="${path }/product/cate/${CATALOG_SELECTED.id}?sort=az">A đến Z</a>
-                                        <a class="${SORT == 'za' ? 'active' : '' }"
-                                           href="${path }/product/cate/${CATALOG_SELECTED.id}?sort=za">Z đến A</a>
-                                        <a class="${SORT == 'minmax' ? 'active' : '' }"
-                                           href="${path }/product/cate/${CATALOG_SELECTED.id}?sort=minmax">Giá thấp
-                                            nhất</a>
-                                        <a class="${SORT == 'maxmin' ? 'active' : '' }"
-                                           href="${path }/product/cate/${CATALOG_SELECTED.id}?sort=maxmin">Giá cao
-                                            nhất</a>
+                            <c:if test="${books.size() > 0}">
+                                <div class="box-sort">
+                                    <div class="title">Sắp xếp</div>
+                                    <div class="sort-by">
+                                        <span class="selected-sort">${SORT }</span>
+                                        <div class="sort-tmp">
+                                            <a class="${SORT == 'newest' ? 'active' : '' }"
+                                               href="${path }/the-loai/${CATALOG_SELECTED.slug}?sort=newest">Mới nhất</a>
+                                            <a class="${SORT == 'az' ? 'active' : '' }"
+                                               href="${path }/the-loai/${CATALOG_SELECTED.slug}?sort=az">A đến Z</a>
+                                            <a class="${SORT == 'za' ? 'active' : '' }"
+                                               href="${path }/the-loai/${CATALOG_SELECTED.slug}?sort=za">Z đến A</a>
+                                            <a class="${SORT == 'minmax' ? 'active' : '' }"
+                                               href="${path }/the-loai/${CATALOG_SELECTED.slug}?sort=minmax">Giá thấp
+                                                nhất</a>
+                                            <a class="${SORT == 'maxmin' ? 'active' : '' }"
+                                               href="${path }/the-loai/${CATALOG_SELECTED.slug}?sort=maxmin">Giá cao
+                                                nhất</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </c:if>
                             <div class="clearfix"></div>
                             <div class="mainbox-body">
                                 <div class="box-list-sanpham">

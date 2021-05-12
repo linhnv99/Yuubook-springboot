@@ -113,8 +113,10 @@
 												</c:if>
 												<div class="form-group">
 													<label for="price">Giá bán</label>
-													<form:input path="price" type="number" class="form-control"
-														id="price" min="0" />
+<%--													<form:input path="price" type="number" class="form-control"--%>
+<%--														id="price" min="0" />--%>
+													<form:input path="price" type="number"
+																class="form-control" id="discount" min="0"  />
 												</div>
 												<div class="form-group">
 													<label for="discount">Giảm giá</label>

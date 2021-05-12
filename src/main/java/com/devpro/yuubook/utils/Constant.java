@@ -11,5 +11,5 @@ public interface Constant {
 	
 	Integer LIMITED_PRODUCT_AUTHOR = 8;
 
-	Integer LIMITED_PRODUCT_HOT = 10;
+	Integer LIMITED_PRODUCT_HOT = 8;
 }

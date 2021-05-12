@@ -69,13 +69,11 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userIn.getId()).orElse(null);
 
         if (user == null) return null;
-
+        user.setPhone(userIn.getPhone());
         if (!userIn.getName().trim().isEmpty())
             user.setName(userIn.getName());
         if (!userIn.getSurname().trim().isEmpty())
             user.setSurname(userIn.getSurname());
-        if (!userIn.getPhone().trim().isEmpty())
-            user.setPhone(userIn.getPhone());
         if (!userIn.getPassword().trim().isEmpty())
             user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         if (userIn.getFile() != null)
