@@ -32,7 +32,7 @@ public class AdminNotificationController {
         Notification notification = service.changeStatus(id);
 
         if (notification == null)
-            return ResponseEntity.ok(new AjaxResponse("ERROR", 200));
+            return ResponseEntity.ok(new AjaxResponse("ERROR", 500));
 
         return ResponseEntity.ok(new AjaxResponse("SUCCESS", 200));
     }
