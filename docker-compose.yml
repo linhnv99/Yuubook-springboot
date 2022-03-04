@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  db:
+    image: mariadb
+    container_name: yuubook_db
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+      MARIADB_DATABASE: yuubook
+      MARIADB_USER: username
+      MARIADB_PASSWORD: password
+    ports:
+      - "3391:3306"
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql
+      - ./database/yuubook_db.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: on-failure
