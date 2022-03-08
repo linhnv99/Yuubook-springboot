@@ -11,6 +11,7 @@ import com.devpro.yuubook.services.mappers.BookMapper;
 import com.devpro.yuubook.utils.FileUtils;
 import com.devpro.yuubook.utils.FuncUtils;
 
+import com.devpro.yuubook.utils.KafkaUtils;
 import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,8 @@ public class BookServiceImpl implements BookService {
     private BookImageRepo bookImageRepo;
     @Autowired
     private BookMapper bookMapper;
+    @Autowired
+    private KafkaUtils kafkaUtils;
 
     public List<Book> getAll() {
         return bookRepo.getAll();
@@ -58,7 +61,9 @@ public class BookServiceImpl implements BookService {
 
     public Book save(Book bookIn) throws IllegalStateException, IOException {
         Book book = bookRepo.findById(bookIn.getId()).orElse(null);
+        String action = "create";
         if (book != null) {
+            action = "update";
             if (bookIn.getCategory() == null) {
                 bookIn.setCategory(book.getCategory());
             }
@@ -83,7 +88,22 @@ public class BookServiceImpl implements BookService {
         }
         bookIn.setStatus(true);
         bookIn.setSlug(FuncUtils.toSlug(bookIn.getName()));
-        return bookRepo.save(bookIn);
+
+        Book bookResponse = bookRepo.save(bookIn);
+        BookDTO bookDTO = BookDTO.builder()
+                .id(bookResponse.getId())
+                .name(bookResponse.getName())
+                .avatar(bookResponse.getAvatar())
+                .authorName(bookResponse.getAuthor().getName())
+                .status(bookResponse.isStatus())
+                .slug(bookResponse.getSlug())
+                .build();
+        String finalAction = action;
+
+        new Thread(() -> {
+            String test = kafkaUtils.pushKafka("book", finalAction, bookDTO);
+        }, "Thread push kafka").start();
+        return bookResponse;
     }
 
     private void updateFiles(Book bookIn, Book book) throws IllegalStateException, IOException {

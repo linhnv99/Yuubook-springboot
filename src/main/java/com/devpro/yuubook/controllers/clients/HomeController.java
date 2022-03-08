@@ -2,6 +2,7 @@ package com.devpro.yuubook.controllers.clients;
 
 import java.util.List;
 
+import com.devpro.yuubook.utils.ExternalApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class HomeController extends BaseController{
     private BookService bookService;
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ExternalApi externalApi;
 
     @GetMapping({"/", "/home"})
     public String index(ModelMap model) throws Exception {
@@ -51,4 +55,5 @@ public class HomeController extends BaseController{
         List<BookDTO> books = bookService.ajaxSearchBooksByKeyword(keyword, 10);
         return ResponseEntity.ok(new AjaxResponse(books, 200));
     }
+
 }

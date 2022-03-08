@@ -11,15 +11,13 @@ import java.util.stream.Collectors;
 public class BookMapper {
     public List<BookDTO> toDTO(List<Book> books, int limit) {
         return books.stream()
-                .map(book -> {
-                    BookDTO bookDTO = new BookDTO();
-                    bookDTO.setId(book.getId());
-                    bookDTO.setName(book.getName());
-                    bookDTO.setAvatar(book.getAvatar());
-                    bookDTO.setAuthorName(book.getAuthor().getName());
-                    bookDTO.setStatus(book.isStatus());
-                    bookDTO.setSlug(book.getSlug());
-                    return bookDTO;
-                }).limit(limit).collect(Collectors.toList());
+                .map(book -> BookDTO.builder()
+                        .id(book.getId())
+                        .name(book.getName())
+                        .avatar(book.getAvatar())
+                        .authorName(book.getAuthor().getName())
+                        .status(book.isStatus())
+                        .slug(book.getSlug())
+                        .build()).limit(limit).collect(Collectors.toList());
     }
 }
