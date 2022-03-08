@@ -132,7 +132,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-bot">Copyright 2020 by Linh Nguyen</div>
+        <div class="footer-bot">Copyright 2021 by Thang Le</div>
     </div>
 </footer>
 <div id="gototop">

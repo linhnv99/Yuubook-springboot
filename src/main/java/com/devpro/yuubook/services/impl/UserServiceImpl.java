@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
         String fullPath = FileUtils.SAVE_PATH + "users/"
                 + file.getOriginalFilename();
         file.transferTo(new File(fullPath));
-        user.setAvatar("http://yuubook.com.vn/files/users/" + file.getOriginalFilename());
+        user.setAvatar("http://localhost:8080/files/users/" + file.getOriginalFilename());
     }
 
     @Override

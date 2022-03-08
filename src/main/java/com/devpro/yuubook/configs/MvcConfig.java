@@ -45,7 +45,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/lib/**").addResourceLocations("classpath:/META-INF/lib/");
 //		admin
         registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/META-INF/admin/");
-        registry.addResourceHandler("/files/**").addResourceLocations("file:///home/linhnv/Documents/School/Yuubook-springboot/upload/");
+        registry.addResourceHandler("/files/**").addResourceLocations("file:./upload/");
     }
 
     @ExceptionHandler(value = Exception.class)

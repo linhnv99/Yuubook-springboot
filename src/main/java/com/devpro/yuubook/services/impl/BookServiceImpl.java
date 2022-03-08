@@ -10,6 +10,8 @@ import java.util.List;
 import com.devpro.yuubook.services.mappers.BookMapper;
 import com.devpro.yuubook.utils.FileUtils;
 import com.devpro.yuubook.utils.FuncUtils;
+
+import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -197,6 +199,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDTO> ajaxSearchBooksByKeyword(String keyword, int limit) {
         List<Book> books = bookRepo.getAllBookByKeyword(keyword.trim());
+        // TODO: get from elastic
         return bookMapper.toDTO(books, limit);
     }
 
