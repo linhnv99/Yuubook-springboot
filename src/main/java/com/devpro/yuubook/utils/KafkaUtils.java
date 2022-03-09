@@ -21,7 +21,7 @@ public class KafkaUtils {
     @Autowired
     private ExternalApi externalApi;
 
-    public <T> String pushKafka(String type, String action, T data) {
+    public <T> void pushKafka(String type, String action, T data) {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("API_KEY", apiKey);
 
@@ -30,6 +30,5 @@ public class KafkaUtils {
                         headers, HttpMethod.POST, URI.create(baseUrl + "/kafka/push"));
         String response = externalApi.exchange(requestEntity, String.class).getBody();
         System.out.println("Response: " + response + "- Action: " + action + "- Type: " + type);
-        return response;
     }
 }

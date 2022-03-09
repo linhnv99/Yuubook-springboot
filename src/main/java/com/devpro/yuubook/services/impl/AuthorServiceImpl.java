@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.devpro.yuubook.models.dto.BookDTO;
 import com.devpro.yuubook.services.mappers.AuthorMapper;
+import com.devpro.yuubook.utils.AuthorKafkaDTO;
 import com.devpro.yuubook.utils.FileUtils;
 import com.devpro.yuubook.utils.FuncUtils;
+import com.devpro.yuubook.utils.KafkaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,8 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorRepo authorRepo;
     @Autowired
     private AuthorMapper authorMapper;
+    @Autowired
+    private KafkaUtils kafkaUtils;
 
     public List<Author> getAll() {
         return authorRepo.findAll();
@@ -32,19 +37,31 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     public void delete(int id) {
+        Author author = authorRepo.findById(id).get();
+        new Thread(() -> {
+            kafkaUtils.pushKafka("author", "delete", AuthorKafkaDTO.builder()
+                    .name(author.getName()).build());
+        }, "Thread push kafka with action delete author").start();
         authorRepo.deleteById(id);
     }
 
     public Author save(Author authorIn) throws IllegalStateException, IOException {
-        Author author = authorRepo.findById(authorIn.getId()).orElse(null);
-        if (author != null) {
+        Author authorExist = authorRepo.findById(authorIn.getId()).orElse(null);
+        if (authorExist != null) {
             if (authorIn.getFile().isEmpty()) {
-                authorIn.setAvatar(author.getAvatar());
+                authorIn.setAvatar(authorExist.getAvatar());
             }
-            authorIn.setShowHome(author.getShowHome());
-            authorIn.setCreatedDate(author.getCreatedDate());
-            authorIn.setStatus(author.isStatus());
+            authorIn.setShowHome(authorExist.getShowHome());
+            authorIn.setCreatedDate(authorExist.getCreatedDate());
+            authorIn.setStatus(authorExist.isStatus());
             authorIn.setUpdatedDate(LocalDateTime.now());
+            if (!authorExist.getName().equals(authorIn.getName())) {
+                new Thread(() -> {
+                    kafkaUtils.pushKafka("author", "update", AuthorKafkaDTO.builder()
+                            .prevName(authorExist.getName())
+                            .nextName(authorIn.getName()).build());
+                }, "Thread push kafka with action update author name").start();
+            }
         } else {
             authorIn.setCreatedDate(LocalDateTime.now());
             authorIn.setShowHome(false);

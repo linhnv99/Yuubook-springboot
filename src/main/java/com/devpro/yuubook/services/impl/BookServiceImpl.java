@@ -101,7 +101,7 @@ public class BookServiceImpl implements BookService {
         String finalAction = action;
 
         new Thread(() -> {
-            String test = kafkaUtils.pushKafka("book", finalAction, bookDTO);
+            kafkaUtils.pushKafka("book", finalAction, bookDTO);
         }, "Thread push kafka").start();
         return bookResponse;
     }
@@ -145,6 +145,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteOrRestoreBookById(Integer id, boolean b) {
         bookRepo.deleteOrRestoreBookById(id, b);
+        new Thread(() -> {
+            kafkaUtils.pushKafka("book", "delete", BookDTO.builder()
+                    .id(id)
+                    .build());
+        }, "Thread push kafka with action delete book by Id").start();
     }
 
     @Override

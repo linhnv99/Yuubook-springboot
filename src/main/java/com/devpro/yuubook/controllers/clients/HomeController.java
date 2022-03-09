@@ -1,12 +1,19 @@
 package com.devpro.yuubook.controllers.clients;
 
+import java.net.URI;
 import java.util.List;
 
 import com.devpro.yuubook.utils.ExternalApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,7 +26,7 @@ import com.devpro.yuubook.services.CategoryService;
 
 
 @Controller
-public class HomeController extends BaseController{
+public class HomeController extends BaseController {
     @Autowired
     private AuthorService authorService;
     @Autowired
@@ -29,6 +36,12 @@ public class HomeController extends BaseController{
 
     @Autowired
     private ExternalApi externalApi;
+
+    @Value("${external.api.url}")
+    private String baseUrl;
+
+    @Value("${external.api.key}")
+    private String apiKey;
 
     @GetMapping({"/", "/home"})
     public String index(ModelMap model) throws Exception {
@@ -52,8 +65,18 @@ public class HomeController extends BaseController{
 
     @GetMapping("/search-suggest")
     public ResponseEntity<AjaxResponse> searchProductByAjax(ModelMap model, @RequestParam("q") String keyword) {
-        List<BookDTO> books = bookService.ajaxSearchBooksByKeyword(keyword, 10);
-        return ResponseEntity.ok(new AjaxResponse(books, 200));
+
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("API_KEY", apiKey);
+
+        RequestEntity<BookDTO> requestEntity = new RequestEntity<>(headers, HttpMethod.GET,
+                URI.create(baseUrl + "/searchElastic/book?searchKey=" + keyword));
+
+        ResponseEntity<List<BookDTO>> responseEntity = externalApi.exchange(requestEntity,
+                new ParameterizedTypeReference<List<BookDTO>>() {
+                });
+//        List<BookDTO> books = bookService.ajaxSearchBooksByKeyword(keyword, 10);
+        return ResponseEntity.ok(new AjaxResponse(responseEntity.getBody(), 200));
     }
 
 }
